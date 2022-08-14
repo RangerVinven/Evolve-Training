@@ -3,11 +3,12 @@ module.exports = {
   , './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
-    colors: {
-      darkblue: "#1F5C78",
-      green: "#1DA39A"
-    }
+    extend: {
+      colors: {
+        darkblue: "#1F5C78",
+        green: "#1DA39A"
+      }
+    },
   },
   variants: {
     extend: {},
