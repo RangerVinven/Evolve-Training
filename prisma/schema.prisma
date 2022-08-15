@@ -17,6 +17,7 @@ model Clients {
   id            Int       @id @default(autoincrement()) @db.UnsignedInt
   name          String    @default("") @db.VarChar(100)
   course        Int       @db.UnsignedInt
+  Company       String    @db.VarChar(400)
 
   @@index([course], map: "Course to Courses ID")
 }
