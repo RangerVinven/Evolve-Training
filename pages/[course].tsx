@@ -13,7 +13,7 @@ type Course = {
 }
 
 export async function getServerSideProps() {
-    const courses = await prisma.Courses.findMany();
+    const courses = await prisma.courses.findMany();
 
     return {
 		props: {
