@@ -1,11 +1,27 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "mysql"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
+}
+
+model Admins {
+  id       Int    @id @default(autoincrement()) @db.UnsignedInt
+  username String @default("") @db.VarChar(50)
+  password String @db.Text
+}
+
+model Clients {
+  id            Int       @id @default(autoincrement()) @db.UnsignedInt
+  name          String    @default("") @db.VarChar(100)
+  course        Int       @db.UnsignedInt
+
+  @@index([course], map: "Course to Courses ID")
+}
+
+model Courses {
+  id   Int    @id @default(autoincrement()) @db.UnsignedInt
+  name String @default("") @db.VarChar(100)
 }
