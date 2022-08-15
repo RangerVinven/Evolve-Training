@@ -22,7 +22,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 	}
 
 	// Checks if the course is a valid course
-	prisma.Courses.findMany({
+	prisma.courses.findMany({
 		where: {
 			name: course
 		}
@@ -32,25 +32,25 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 				error: "Course doesn't exist"
 			});
 		} else {
-			try {
-				// If the course is valid, it adds it to the database
-				const courseID = course[0].id;
-				prisma.Clients.create({
-					data: {
-						name: name,
-						company: company,
-						course: courseID
-					}
-				});
-
+			// If the course is valid, it adds it to the database
+			const courseID = course[0].id;
+			prisma.clients.create({
+				data: {
+					name: name,
+					company: company,
+					course: courseID
+				}
+			}).then(course => {
 				res.status(200).json({
 					message: "Success"
 				});
-			} catch(e) {
+				return;
+			}).catch((error: any) => {
 				res.status(500).json({
 					error: "Something went wrong"
 				});
-			}
+				return;
+			});
 			
 		}
 	});
