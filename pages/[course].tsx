@@ -1,12 +1,11 @@
 import type { NextPage } from 'next'
-import { PrismaClient } from '@prisma/client';
 import { useRouter } from 'next/router';
+
+import { prisma } from "../lib/prisma";
 
 import Logo from './components/Logo'
 import Form from './components/Form'
 import CourseNotFound from './components/CourseNotFound';
-
-const prisma = new PrismaClient();
 
 type Course = {
 	id: number,
