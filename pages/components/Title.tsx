@@ -1,6 +1,10 @@
 import React from 'react'
 
-export default function Title() {
+type Props = {
+    title: string
+}
+
+export default function Title(props: Props) {
 
     const date = new Date();
 
@@ -15,7 +19,7 @@ export default function Title() {
 
     return (
         <div>
-            <h1 className="text-4xl text-darkblue font-bold">Forklift Handeling - {date.getDate() + "/" + (getMonth(date.getMonth() + 1)) + "/" + date.getFullYear()}</h1>
+            <h1 className="text-4xl text-darkblue font-bold">{props.title} - {date.getDate() + "/" + (getMonth(date.getMonth() + 1)) + "/" + date.getFullYear()}</h1>
         </div>
     );
 }
