@@ -1,7 +1,8 @@
 import React from 'react'
 
 type Props = {
-    title: string
+    title: string,
+    showDate: boolean
 }
 
 export default function Title(props: Props) {
@@ -19,7 +20,7 @@ export default function Title(props: Props) {
 
     return (
         <div>
-            <h1 className="text-4xl text-darkblue font-bold">{props.title} - {date.getDate() + "/" + (getMonth(date.getMonth() + 1)) + "/" + date.getFullYear()}</h1>
+            <h1 className="text-4xl text-darkblue font-bold">{props.title + (props.showDate ? " - " + date.getDate() + "/" + (getMonth(date.getMonth() + 1)) + "/" + date.getFullYear() : "")}</h1>
         </div>
     );
 }
