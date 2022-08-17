@@ -31,6 +31,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 			res.status(400).json({
 				error: "Course doesn't exist"
 			});
+			return;
 		} else {
 			// If the course is valid, it adds it to the database
 			const courseID = course[0].id;
@@ -38,7 +39,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 				data: {
 					name: name,
 					company: company,
-					course: courseID
+					course: courseID,
+					printed_certificate: false
 				}
 			}).then(course => {
 				res.status(200).json({
