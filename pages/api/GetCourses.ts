@@ -10,7 +10,13 @@ type Data = {
 }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-	prisma.courses.findMany({}).then((courses: any) => {
+	prisma.courses.findMany({
+        orderBy: [
+            {
+                name: "asc"
+            }
+        ]
+    }).then((courses: any) => {
         res.status(200).json({
             courses: courses
         });
