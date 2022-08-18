@@ -3,18 +3,12 @@ import React from 'react'
 import Course from './Course'
 import Search from './Search'
 
-type Props = {
-    courses: any,
-}
-
 type Course ={
     id: number
     name: string
 }
 
 export default function CourseSelect(props: any) {
-    
-    console.log(props.courses.courses);
     
     return (
         <div className="flex justify-center items-center mt-10">
