@@ -5,23 +5,17 @@ import Title from './components/Title'
 
 const Home: NextPage = () => {
 
-	const paragraphStyling = "text-green text-lg w-8/12 font-bold";
+	const buttonStyling = "bg-green text-white font-bold text-4xl px-7 py-3 mr-7 mb-7 rounded-md";
 
 	return (
 		<div>
 			<Logo />
 			<div className="flex flex-col items-center justify-center">
-				<Title title="No Course Selected" showDate={false} />
-				<p className={paragraphStyling}>
-					In order to submit your information to get your certificate,
-					you must go to the Evolve Training office and request the QR
-					code for your course.
-				</p>
-				<br />
-				<p className={paragraphStyling}>
-					Please scan that QR code - or go to the URL below it - and fill
-					out your information in order to get your certificate.
-				</p>
+				<div className="flex items-center justify-center">
+					<button className={buttonStyling}>Sign In</button>
+					<button className={buttonStyling}>Sign Out</button>
+				</div>
+				<button className={buttonStyling}>Registered</button>
 			</div>
 		</div>
 	)
