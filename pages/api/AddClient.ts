@@ -18,7 +18,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 		res.status(400).json({
 			error: "Please enter all the fields"
 		});
-		return;
+		res.end();
 	}
 
 	// Checks if the course is a valid course
@@ -31,7 +31,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 			res.status(400).json({
 				error: "Course doesn't exist"
 			});
-			return;
+			res.end();
 		} else {
 			// If the course is valid, it adds it to the database
 			const courseID = course[0].id;
@@ -46,14 +46,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 				res.status(200).json({
 					message: "Success"
 				});
-				return;
+				res.end();
 			}).catch((error: any) => {
 				res.status(500).json({
 					error: "Something went wrong"
 				});
-				return;
-			});
-			
+				res.end();
+			});	
 		}
 	});
 }
