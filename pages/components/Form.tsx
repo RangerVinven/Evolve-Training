@@ -3,7 +3,7 @@ import React from 'react'
 import Title from './Title'
 
 type Props = {
-    course: string
+    course: any
 }
 
 export default function Form(props: Props) {
@@ -16,7 +16,7 @@ export default function Form(props: Props) {
             
             <input type="text" placeholder="Your Name" className={inputStyle} />
             <input type="text" placeholder="Your Company" className={inputStyle} />
-            <button className="bg-darkblue text-2xl w-fit p-1 px-2 font-bold text-white rounded-md">Submit</button>
+            <button className="bg-darkblue text-2xl w-fit p-1 px-2 font-bold text-white rounded-md">Sign In</button>
         </div>
     )
 }
