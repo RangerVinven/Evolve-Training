@@ -8,8 +8,18 @@ export default function Courses() {
 
 	const router = useRouter();
     const option = router.query.option;
-	
-	if(option === "signin" || option === "signout" || option === "registered") {
+
+	let [showCourses, setShowCourses] = React.useState(false); 
+
+	useEffect(() => {
+		if(option !== "signin" && option !== "signout" && option !== "registered") {
+			router.push("/");
+		} else {
+			setShowCourses(true);
+		}
+	}, []);
+
+	if(showCourses) {
 		return (
 			<div>
 				<Logo />
@@ -19,8 +29,6 @@ export default function Courses() {
 			</div>
 		);
 	} else {
-		useEffect(() => {
-			router.push("/");
-		}, []);
+		return <></>
 	}
 }
