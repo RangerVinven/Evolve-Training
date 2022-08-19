@@ -1,4 +1,5 @@
 import React from 'react'
+import BackButton from './BackButton'
 
 import Course from './Course'
 import Search from './Search'
@@ -13,9 +14,12 @@ export default function CourseSelect(props: any) {
     return (
         <div className="flex justify-center items-center mt-10">
             <div className="flex flex-col items-center">
-                <div className="lg:flex md:flex justify-between w-6.9/10">
-                    <Search />
-                    <button className="bg-darkblue px-1 rounded-md text-white font-bold mb-2 mr-6">All Trainees</button>
+                <div className="lg:flex md:flex justify-between w-6.9/10 ">
+                    <div className="flex flex-col items-start">
+                        <BackButton previousPage="/" isInTitle={false} />
+                        <Search />
+                    </div>
+                    <button className="h-10 bg-darkblue px-1 rounded-md text-white font-bold mb-2 mr-6">All Trainees</button>
                 </div>
                 <div className="flex flex-wrap justify-center items-center w-9/12">
                     {
