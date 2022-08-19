@@ -15,10 +15,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 
 	// Makes sure all the fields are submitted
 	if(!course || !name || !company) {
-		res.status(400).json({
+		return res.status(400).json({
 			error: "Please enter all the fields"
 		});
-		res.end();
 	}
 
 	// Checks if the course is a valid course
@@ -28,10 +27,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 		}
 	}).then((course: any) => {		
 		if(course.length !== 1) {
-			res.status(400).json({
+			return res.status(400).json({
 				error: "Course doesn't exist"
 			});
-			res.end();
 		} else {
 			// If the course is valid, it adds it to the database
 			const courseID = course[0].id;
@@ -42,15 +40,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 					course: courseID,
 				}
 			}).then(course => {
-				res.status(200).json({
+				return res.status(200).json({
 					message: "Success"
 				});
-				res.end();
 			}).catch((error: any) => {
-				res.status(500).json({
+				return res.status(500).json({
 					error: "Something went wrong"
 				});
-				res.end();
 			});	
 		}
 	});
