@@ -4,23 +4,12 @@ import BackButton from './BackButton'
 import Course from './Course'
 import Search from './Search'
 
-import { prisma } from "../../lib/prisma";
 import ReactLoading from 'react-loading';
 
 type Course ={
     id: number
     name: string
 }
-
-// export async function getServerSideProps() {
-// 	const courses = await prisma.courses.findMany({orderBy: [{ name: "asc" }]});
-    
-// 	return {
-// 		props: {
-// 			courses
-// 		}
-// 	}
-// }
 
 export default function CourseSelect(props: any) {    
 
