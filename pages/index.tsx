@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import Link from 'next/link'
 import { NextRouter, useRouter } from 'next/router'
 
 import Logo from './components/Logo'
@@ -18,7 +19,15 @@ const Home: NextPage = () => {
 			<Logo />
 			<div className="flex flex-col items-center justify-center h-450">
 				<div className="flex flex-wrap md:flex-none lg:flex-none items-center justify-center">
-					<button className={buttonStyling} onClick={() => redirectUser(router, "signin")}>Sign In</button>
+					<Link href={{
+						pathname: '/courses',
+						query: {
+							option: 'signin'
+						}
+					}}>
+						<button className={buttonStyling}>Sign In</button>
+					</Link>
+					
 					<button className={buttonStyling} onClick={() => redirectUser(router, "signout")}>Sign Out</button>
 				</div>
 				<button className={buttonStyling} onClick={() => redirectUser(router, "registered")}>Registered</button>
