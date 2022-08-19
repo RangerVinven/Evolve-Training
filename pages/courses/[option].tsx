@@ -23,12 +23,12 @@ export default function Courses(props: any) {
     const option = router.query.option!.toString();
 
 	
-	if(option === "signin" || option === "signup" || option === "registered") {
+	if(option === "signin" || option === "signout" || option === "registered") {
 		return (
 			<div>
 				<Logo />
 				<div className="flex justify-center items-center">
-					<CourseSelect courses={props.courses} />
+					<CourseSelect courses={props.courses} option={option} />
 				</div>
 			</div>
 		);
