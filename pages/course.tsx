@@ -9,7 +9,7 @@ import Title from './components/Title';
 
 import { prisma } from "../lib/prisma";
 
-export default function course(props: any) {
+export default function Course(props: any) {
 	const router = useRouter();
     const course = router.query.course;
     const option = router.query.option;
