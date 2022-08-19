@@ -37,7 +37,7 @@ export default function Courses(props: any) {
 			<div>
 				<Logo />
 				<div className="flex justify-center items-center">
-					<Title title="Error: Only 'signin', 'signup' and 'registered' is allowed" showDate={false} />
+					<Title title="Error: Only 'signin', 'signup' and 'registered' is allowed" showDate={false} showBackButton={true} previousPage="/" />
 				</div>
 			</div>
 		)

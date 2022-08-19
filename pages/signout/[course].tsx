@@ -5,6 +5,7 @@ import Logo from '../components/Logo';
 import Form from '../components/Form';
 
 import { prisma } from "../../lib/prisma";
+import Title from '../components/Title';
 
 export async function getServerSideProps() {
 	const clients = await prisma.clients.findMany({orderBy: [{ name: "asc" }]});
@@ -26,7 +27,10 @@ export default function signIn(props: any) {
             <Logo />
             <div className="flex justify-center items-center h-96">
                 <div className="flex flex-col items-center justify-center 6/12">
-                    <select className="w-96 h-12 bg-green pl-1 text-white font-bold text-2xl" name="client">
+                    <div className="mb-12">
+                        <Title title={course!.toString()} showDate={true} showBackButton={true} previousPage="/courses/signout" />
+                    </div>
+                    <select className="w-96 h-12 bg-green pl-1 rounded-md text-white font-bold text-2xl" name="client">
                         <option selected disabled>Your Name</option>
                         {
                             props.clients.map((client: any) => {
