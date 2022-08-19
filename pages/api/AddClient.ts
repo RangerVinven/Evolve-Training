@@ -40,7 +40,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
 					name: name,
 					company: company,
 					course: courseID,
-					printed_certificate: false
 				}
 			}).then(course => {
 				res.status(200).json({
