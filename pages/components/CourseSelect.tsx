@@ -5,6 +5,7 @@ import Course from './Course'
 import Search from './Search'
 
 import { prisma } from "../../lib/prisma";
+import ReactLoading from 'react-loading';
 
 type Course ={
     id: number
@@ -28,14 +29,13 @@ export default function CourseSelect(props: any) {
     React.useEffect(() => {
         fetch("/api/GetCourses").then(res => res.json()).then(data => {
             setCourses(data.courses);
-            console.log(courses);
         });
     }, []);
     
     if(courses.length === 0) {
         return (
-            <div className="flex justify-center items-center">
-                <div className="text-3xl">Loading...</div>
+            <div className="h-450 flex justify-center items-center">
+                <ReactLoading type="spin" color="#1F5C78" height={100} width={100} />
             </div>
         );
     } else {
