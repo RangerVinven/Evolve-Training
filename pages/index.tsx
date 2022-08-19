@@ -28,7 +28,14 @@ const Home: NextPage = () => {
 						<button className={buttonStyling}>Sign In</button>
 					</Link>
 					
-					<button className={buttonStyling} onClick={() => redirectUser(router, "signout")}>Sign Out</button>
+					<Link href={{
+						pathname: '/courses',
+						query: {
+							option: 'signout'
+						}
+					}}>
+						<button className={buttonStyling}>Sign Out</button>
+					</Link>
 				</div>
 				<button className={buttonStyling} onClick={() => redirectUser(router, "registered")}>Registered</button>
 			</div>
