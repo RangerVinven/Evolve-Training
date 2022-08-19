@@ -14,7 +14,7 @@ export default function Form(props: Props) {
 
     return (
         <div className="flex flex-col justify-between items-center h-80 mt-4">
-            <Title title={props.course} showDate={true} showBackButton={true} previousPage="/courses/signout" />
+            <Title title={props.course} showDate={true} showBackButton={true} previousPage="/courses?option=signin" />
             
             <input type="text" placeholder="Your Name" className={inputStyle} onChange={(e) => setName(e.target.value)} />
             <input type="text" placeholder="Your Company" className={inputStyle} onChange={(e) => setCompany(e.target.value)} />
