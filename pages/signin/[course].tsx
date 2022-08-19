@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import Logo from '../components/Logo';
 import Form from '../components/Form';
 
-export default function signIn() {
+export default function SignIn() {
 
     const router = useRouter();
     const course = router.query.course;
