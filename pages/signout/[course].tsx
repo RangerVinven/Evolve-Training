@@ -17,7 +17,7 @@ export async function getServerSideProps() {
 	}
 }
 
-export default function signIn(props: any) {
+export default function SignOut(props: any) {
 
     const router = useRouter();
     const course = router.query.course;
