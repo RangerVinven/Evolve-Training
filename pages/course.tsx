@@ -7,18 +7,16 @@ import Logo from './components/Logo';
 import Form from './components/Form';
 import Title from './components/Title';
 
-import { prisma } from "../lib/prisma";
-
 export default function Course(props: any) {
 	const router = useRouter();
     const course = router.query.course;
     const option = router.query.option;
 
-    if(course === null || course === undefined || option === null || option === undefined) {
-        useEffect(() => {
+    useEffect(() => {
+        if(course === null || course === undefined || option === null || option === undefined) {
             router.push("/");
-        }, [])
-    }
+        }
+    }, []);
 
     if(option === "signin" || option === "signout" || option === "registered") {
         if(option === "signin") {
@@ -40,19 +38,17 @@ export default function Course(props: any) {
                 }
             ]);
 
-            useEffect(() => {
-                fetch("/api/GetClientsOfACourse", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        "course": course
-                    })
-                }).then(res => res.json()).then(data => {
-                    setClients(data.clients);                                        
-                });
-            }, []);            
+            fetch("/api/GetClientsOfACourse", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "course": course
+                })
+            }).then(res => res.json()).then(data => {
+                setClients(data.clients);                                        
+            });           
 
             if(clients === [{"Clients Not Loaded": "Clients Not Loaded"}]) {
                 return (
