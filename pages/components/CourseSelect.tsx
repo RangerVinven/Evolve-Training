@@ -14,7 +14,7 @@ export default function CourseSelect(props: any) {
     return (
         <div className="flex justify-center items-center mt-10">
             <div className="flex flex-col items-center">
-                <div className="lg:flex md:flex justify-between w-6.9/10 ">
+                <div className="lg:flex md:flex justify-between items-end w-6.9/10 ">
                     <div className="flex flex-col items-start">
                         <BackButton previousPage="/" isInTitle={false} />
                         <Search />
