@@ -10,8 +10,8 @@ const Home: NextPage = () => {
 	return (
 		<div>
 			<Logo />
-			<div className="flex flex-col items-center justify-center">
-				<div className="flex items-center justify-center">
+			<div className="flex flex-col items-center justify-center h-450">
+				<div className="flex flex-wrap md:flex-none lg:flex-none items-center justify-center">
 					<button className={buttonStyling}>Sign In</button>
 					<button className={buttonStyling}>Sign Out</button>
 				</div>
