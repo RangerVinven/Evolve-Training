@@ -20,7 +20,7 @@ export default function CourseSelect(props: any) {
                 <div className="flex flex-wrap justify-center items-center w-9/12">
                     {
                         props.courses.map((course: Course) => {
-                            return <Course key={course.id} course={course.name} />
+                            return <Course key={course.id} course={course.name} option={props.option} />
                         })
                     }
                 </div>
