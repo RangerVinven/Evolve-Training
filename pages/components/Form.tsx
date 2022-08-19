@@ -19,7 +19,7 @@ export default function Form(props: Props) {
             <input type="text" placeholder="Your Name" className={inputStyle} onChange={(e) => setName(e.target.value)} />
             <input type="text" placeholder="Your Company" className={inputStyle} onChange={(e) => setCompany(e.target.value)} />
             <button onClick={() => { 
-                fetch("http://localhost:3000/api/AddClient", {
+                fetch("/api/AddClient", {
                     method: "POST",
                     body: JSON.stringify({
                         "name": name,
