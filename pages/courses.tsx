@@ -1,27 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import Router, { useRouter } from 'next/router'
 
 import Logo from './components/Logo';
 import CourseSelect from './components/CourseSelect';
 
-import { prisma } from "../lib/prisma";
+export default function Courses() {
 
-export async function getServerSideProps() {
-	const courses = await prisma.courses.findMany({orderBy: [{ name: "asc" }]});
-
-	return {
-		props: {
-			courses
-		}
-	}
-}
-
-export default function Courses(props: any) {
-	return (
-		<div>
-			<Logo />
-			<div className="flex justify-center items-center">
-				<CourseSelect courses={props.courses} />
+	const router = useRouter();
+    const option = router.query.option;
+	
+	if(option === "signin" || option === "signout" || option === "registered") {
+		return (
+			<div>
+				<Logo />
+				<div className="flex justify-center items-center">
+					<CourseSelect option={option} />
+				</div>
 			</div>
-		</div>
-	);
+		);
+	} else {
+		useEffect(() => {
+			router.push("/");
+		}, []);
+	}
 }
