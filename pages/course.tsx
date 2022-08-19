@@ -12,6 +12,12 @@ export default function Course(props: any) {
     const course = router.query.course;
     const option = router.query.option;
 
+    let [clients, setClients] = React.useState([
+        {
+            "Clients Not Loaded": "Clients Not Loaded",
+        }
+    ]);
+
     useEffect(() => {
         if(course === null || course === undefined || option === null || option === undefined) {
             if(option !== "signin" && option !== "signout" && option !== "registered") {
@@ -34,13 +40,6 @@ export default function Course(props: any) {
             </div>
         );
     } else if(option === "signout") {
-
-        let [clients, setClients] = React.useState([
-            {
-                "Clients Not Loaded": "Clients Not Loaded",
-            }
-        ]);
-
         fetch("/api/GetClientsOfACourse", {
             method: "POST",
             headers: {
