@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 import Logo from './components/Logo';
 import CourseSelect from './components/CourseSelect';
@@ -28,7 +28,5 @@ export default function Courses() {
 				</div>
 			</div>
 		);
-	} else {
-		return <></>
 	}
 }
