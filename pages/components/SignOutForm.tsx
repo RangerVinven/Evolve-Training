@@ -32,3 +32,9 @@ import React from 'react'
 //         </div>
 //     );
 // }
+
+export default function SignOutForm() {
+  return (
+    <div>SignOutForm</div>
+  )
+}
