@@ -16,7 +16,8 @@ export default function Course(props: any) {
         {
             "Clients Not Loaded": "Clients Not Loaded",
         }
-    ]);    
+    ]);
+    let hasCalledGetClients = false;  
 
     useEffect(() => {
         if(course === null || course === undefined || option === null || option === undefined) {
@@ -40,7 +41,10 @@ export default function Course(props: any) {
             </div>
         );
     } else if(option === "signout") {
-        if(clients.length === 1 && clients[0].hasOwnProperty("Clients Not Loaded")) {
+
+        if(!hasCalledGetClients) {
+            hasCalledGetClients = true;
+
             fetch("/api/GetClientsOfACourse", {
                 method: "POST",
                 headers: {
@@ -54,7 +58,7 @@ export default function Course(props: any) {
             });            
         }         
 
-        if(clients.length === 1 && clients[0].hasOwnProperty("Clients Not Loaded")) {
+        if(!hasCalledGetClients) {
             return (
                 <div>
                     <Logo />
@@ -70,7 +74,7 @@ export default function Course(props: any) {
                     <div className="flex justify-center items-center h-96">
                         <div className="flex flex-col items-center justify-center 6/12">
                             <div className="mb-12">
-                                    <Title title={course!.toString()} showDate={true} showBackButton={true} previousPage="/" />
+                                <Title title={course!.toString()} showDate={true} showBackButton={true} previousPage="/" />
                             </div>
                             <select defaultValue="Your Name" className="w-96 h-12 bg-green pl-1 rounded-md text-white font-bold text-2xl" name="client">
                                 <option disabled>Your Name</option>
