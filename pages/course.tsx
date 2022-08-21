@@ -55,7 +55,7 @@ export default function Course(props: any) {
         if(clients === [{"Clients Not Loaded": "Clients Not Loaded"}]) {
             return (
                 <div className="h-450 flex justify-center items-center">
-                    <ReactLoading type="spin" color="#1F5C78" height={100} width={100} />
+                    <ReactLoading type="spinningBubbles" color="#1F5C78" height={100} width={100} />
                 </div>
             );
         } else {

@@ -24,7 +24,7 @@ export default function CourseSelect(props: any) {
     if(courses.length === 0) {
         return (
             <div className="h-450 flex justify-center items-center">
-                <ReactLoading type="spin" color="#1F5C78" height={100} width={100} />
+                <ReactLoading type="spinningBubbles" color="#1F5C78" height={100} width={100} />
             </div>
         );
     } else {
