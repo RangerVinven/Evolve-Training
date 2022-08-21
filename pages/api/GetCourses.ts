@@ -21,7 +21,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
             courses: courses
         });
     }).catch((error: any) => {
-        console.log(error);
         return res.status(500).json({
             error: "Something went wrong"
         });
