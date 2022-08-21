@@ -81,7 +81,17 @@ export default function Course(props: any) {
                                 {
                                     clients.map((client: any) => {
                                         return (
-                                            <option key={client.id} value={client.name}>{client.name} - {client.company}</option>
+                                            <option key={client.id} value={client.name} onClick={() => {
+                                                fetch("/api/RemoveClient", {
+                                                    method: "POST",
+                                                    headers: {
+                                                        "Content-Type": "application/json"
+                                                    },
+                                                    body: JSON.stringify({
+                                                        "clientID": client.id
+                                                    })
+                                                })
+                                            }}>{client.name} - {client.company}</option>
                                         )
                                     })
                                 }
