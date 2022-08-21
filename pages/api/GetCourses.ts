@@ -17,14 +17,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
             }
         ]
     }).then((courses: any) => {
-        res.status(200).json({
+        return res.status(200).json({
             courses: courses
         });
-        res.end();
     }).catch((error: any) => {
-        res.status(500).json({
+        console.log(error);
+        return res.status(500).json({
             error: "Something went wrong"
         });
-        res.end();
     })
 };
