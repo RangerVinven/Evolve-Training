@@ -16,7 +16,7 @@ export default function Course(props: any) {
         {
             "Clients Not Loaded": "Clients Not Loaded",
         }
-    ]);
+    ]);    
 
     useEffect(() => {
         if(course === null || course === undefined || option === null || option === undefined) {
@@ -27,27 +27,6 @@ export default function Course(props: any) {
             router.push("/");
         }
     }, []);
-
-    const checkClients = (clients: {}[]) => {
-        if(clients[0].hasOwnProperty("Clients Not Loaded")) {
-            return (
-                <div className="h-450 flex justify-center items-center">
-                    <ReactLoading type="spinningBubbles" color="#1F5C78" height={100} width={100} />
-                </div>
-            );
-        } else {
-            <select defaultValue="Your Name" className="w-96 h-12 bg-green pl-1 rounded-md text-white font-bold text-2xl" name="client">
-                <option disabled>Your Name</option>
-                {
-                    clients.map((client: any) => {
-                        return (
-                            <option key={client.id} value={client.name}>{client.name} - {client.company}</option>
-                        )
-                    })
-                }
-            </select>
-        }
-    }
 
     if(option === "signin") {
         return (
@@ -61,22 +40,27 @@ export default function Course(props: any) {
             </div>
         );
     } else if(option === "signout") {
-        fetch("/api/GetClientsOfACourse", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                "course": course
-            })
-        }).then(res => res.json()).then(data => {
-            setClients(data.clients);                                        
-        });           
+        if(clients.length === 1 && clients[0].hasOwnProperty("Clients Not Loaded")) {
+            fetch("/api/GetClientsOfACourse", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "course": course
+                })
+            }).then(res => res.json()).then(data => {
+                setClients(data.clients);                                        
+            });            
+        }         
 
-        if(clients[0].hasOwnProperty("Clients Not Loaded")) {
+        if(clients.length === 1 && clients[0].hasOwnProperty("Clients Not Loaded")) {
             return (
-                <div className="h-450 flex justify-center items-center">
-                    <ReactLoading type="spinningBubbles" color="#1F5C78" height={100} width={100} />
+                <div>
+                    <Logo />
+                    <div className="h-450 flex justify-center items-center">
+                        <ReactLoading type="spinningBubbles" color="#1F5C78" height={100} width={100} />
+                    </div>
                 </div>
             );
         } else {
@@ -88,9 +72,16 @@ export default function Course(props: any) {
                             <div className="mb-12">
                                     <Title title={course!.toString()} showDate={true} showBackButton={true} previousPage="/" />
                             </div>
-
-                            {checkClients(clients)}
-                            
+                            <select defaultValue="Your Name" className="w-96 h-12 bg-green pl-1 rounded-md text-white font-bold text-2xl" name="client">
+                                <option disabled>Your Name</option>
+                                {
+                                    clients.map((client: any) => {
+                                        return (
+                                            <option key={client.id} value={client.name}>{client.name} - {client.company}</option>
+                                        )
+                                    })
+                                }
+                            </select>
                             <button className="bg-darkblue text-2xl w-fit p-1 px-2 mt-8 font-bold text-white rounded-md">Sign Out</button>
                         </div>
                     </div>
