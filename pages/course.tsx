@@ -28,6 +28,27 @@ export default function Course(props: any) {
         }
     }, []);
 
+    const checkClients = (clients: {}[]) => {
+        if(clients[0].hasOwnProperty("Clients Not Loaded")) {
+            return (
+                <div className="h-450 flex justify-center items-center">
+                    <ReactLoading type="spinningBubbles" color="#1F5C78" height={100} width={100} />
+                </div>
+            );
+        } else {
+            <select defaultValue="Your Name" className="w-96 h-12 bg-green pl-1 rounded-md text-white font-bold text-2xl" name="client">
+                <option disabled>Your Name</option>
+                {
+                    clients.map((client: any) => {
+                        return (
+                            <option key={client.id} value={client.name}>{client.name} - {client.company}</option>
+                        )
+                    })
+                }
+            </select>
+        }
+    }
+
     if(option === "signin") {
         return (
             <div>
@@ -67,16 +88,9 @@ export default function Course(props: any) {
                             <div className="mb-12">
                                     <Title title={course!.toString()} showDate={true} showBackButton={true} previousPage="/" />
                             </div>
-                            <select defaultValue="Your Name" className="w-96 h-12 bg-green pl-1 rounded-md text-white font-bold text-2xl" name="client">
-                                <option disabled>Your Name</option>
-                                {
-                                    clients.map((client: any) => {
-                                        return (
-                                            <option key={client.id} value={client.name}>{client.name} - {client.company}</option>
-                                        )
-                                    })
-                                }
-                            </select>
+
+                            {checkClients(clients)}
+                            
                             <button className="bg-darkblue text-2xl w-fit p-1 px-2 mt-8 font-bold text-white rounded-md">Sign Out</button>
                         </div>
                     </div>
