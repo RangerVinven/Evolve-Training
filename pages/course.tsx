@@ -52,7 +52,7 @@ export default function Course(props: any) {
             setClients(data.clients);                                        
         });           
 
-        if(clients === [{"Clients Not Loaded": "Clients Not Loaded"}]) {
+        if(clients[0].hasOwnProperty("Clients Not Loaded")) {
             return (
                 <div className="h-450 flex justify-center items-center">
                     <ReactLoading type="spinningBubbles" color="#1F5C78" height={100} width={100} />
