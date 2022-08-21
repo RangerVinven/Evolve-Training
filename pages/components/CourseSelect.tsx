@@ -15,9 +15,11 @@ export default function CourseSelect(props: any) {
 
     let [courses, setCourses] = React.useState<Course[]>([]);
     
-    fetch("/api/GetCourses").then(res => res.json()).then(data => {
-        setCourses(data.courses);
-    });
+    React.useEffect(() => {
+        fetch("/api/GetCourses").then(res => res.json()).then(data => {
+            setCourses(data.courses);
+        });
+    }, []);
     
     if(courses.length === 0) {
         return (
