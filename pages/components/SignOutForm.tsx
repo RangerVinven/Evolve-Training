@@ -4,6 +4,14 @@ import Logo from './Logo';
 
 type Props ={
     course: string,
+	// setSelectedClientID: Function,
+	// signOutClient: Function
+}
+
+type Clients = {
+	clients: Array<{}>,
+	setSelectedClientID: Function,
+	selectedClientID: number
 }
 
 export default function SignOutForm(props: Props) {
@@ -11,6 +19,8 @@ export default function SignOutForm(props: Props) {
 	let [clients, setClients] = React.useState([{
 		"Clients Not Loaded": "Clients Not Loaded",
 	}]);
+
+	let [selectedClientID, setSelectedClientID] = React.useState(0);
 
 	useEffect(() => {
 		fetch("/api/GetClientsOfACourse", {
@@ -38,30 +48,42 @@ export default function SignOutForm(props: Props) {
 			);
 		} else {
 			return (
-				<select defaultValue="Your Name" className="w-96 h-12 bg-green pl-1 rounded-md text-white font-bold text-2xl" name="client">
-					<option disabled>Your Name</option>
-					{
-						clients.map((client: any) => {
-							return (
-								<option key={client.id} value={client.name}>{client.name} - {client.company}</option>
-							)
-						})
-					}
-				</select>
+				<SelectAndSubmitComponent clients={clients} setSelectedClientID={setSelectedClientID} selectedClientID={selectedClientID}  />
 			);
 		}
 	} else {
 		return (
-			<select defaultValue="Your Name" className="w-96 h-12 bg-green pl-1 rounded-md text-white font-bold text-2xl" name="client">
+			<SelectAndSubmitComponent clients={clients} setSelectedClientID={setSelectedClientID} selectedClientID={selectedClientID} />
+		);
+	}
+}
+
+function SelectAndSubmitComponent(props: Clients) {
+	return (
+		<div>
+			<select onChange={(event) => {
+				props.setSelectedClientID(Number(event.target.value));
+			}} defaultValue="Your Name" className="w-96 h-12 bg-green pl-1 rounded-md text-white font-bold text-2xl" name="client">
 				<option disabled>Your Name</option>
 				{
-					clients.map((client: any) => {
+					props.clients.map((client: any) => {
 						return (
-							<option key={client.id} value={client.name}>{client.name} - {client.company}</option>
+							<option key={client.id} value={client.id}>{client.name} - {client.company}</option>
 						)
 					})
 				}
 			</select>
-		)
-	}
+			<button onClick={() => {
+				fetch("/api/RemoveClient", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify({
+						"clientID": props.selectedClientID,
+					})
+				});
+			}} className="bg-darkblue text-2xl w-fit p-1 px-2 mt-8 font-bold text-white rounded-md">Sign Out</button>
+		</div>
+	)
 }
