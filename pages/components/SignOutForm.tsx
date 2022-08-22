@@ -4,8 +4,6 @@ import Logo from './Logo';
 
 type Props ={
     course: string,
-	// setSelectedClientID: Function,
-	// signOutClient: Function
 }
 
 type Clients = {
