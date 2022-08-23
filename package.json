@@ -14,13 +14,18 @@
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-loading": "^2.0.3"
+    "react-hot-toast": "^2.3.0",
+    "react-loading": "^2.0.3",
+    "react-simple-toasts": "^2.2.3",
+    "react-toastify": "^9.0.8",
+    "toastr": "^2.1.4"
   },
   "devDependencies": {
     "@types/mysql": "^2.15.21",
     "@types/node": "^18.7.3",
     "@types/react": "^18.0.17",
     "@types/react-dom": "18.0.6",
+    "@types/toastr": "^2.1.40",
     "autoprefixer": "^10.4.8",
     "eslint": "8.22.0",
     "eslint-config-next": "12.2.5",
