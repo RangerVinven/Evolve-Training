@@ -26,7 +26,6 @@ export default function Course(props: any) {
     if(option === "signin") {
         return (
             <div>
-                <ToastArea />
                 <Logo />
                 <div className="flex justify-center items-center">
                     <div className="6/12">
@@ -38,7 +37,6 @@ export default function Course(props: any) {
     } else if(option === "signout") {
         return (
             <div>
-                <ToastArea />
                 <Logo />
                 <div className="flex justify-center items-center h-96">
                     <div className="flex flex-col items-center justify-center 6/12">
@@ -52,12 +50,4 @@ export default function Course(props: any) {
         );
         
     }
-}
-
-function ToastArea() {
-    return (
-        <div className="absolute bottom-5 ml-5">
-            
-        </div>
-    )
 }
