@@ -43,7 +43,7 @@ export default function Course(props: any) {
                         <div className="mb-12">
                             <Title title={course!.toString()} showDate={true} showBackButton={true} previousPage="/" />
                         </div>
-                        <SignOutForm course={course!.toString()} />
+                        <SignOutForm course={course!.toString()} toast={toast} />
                     </div>
                 </div>
             </div>
