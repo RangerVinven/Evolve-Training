@@ -8,42 +8,81 @@ import Form from './components/Form';
 import Title from './components/Title';
 import SignOutForm from './components/SignOutForm';
 
-export default function Course(props: any) {
-	const router = useRouter();
-    const course = router.query.course;
-    const option = router.query.option;
+import { prisma } from "../lib/prisma";
 
-    useEffect(() => {
-        if(course === null || course === undefined || option === null || option === undefined) {
-            if(option !== "signin" && option !== "signout" && option !== "registered") {
-                router.push("/");
-            }
-        } else if(option !== "signin" && option !== "signout" && option !== "registered") {
-            router.push("/");
+export async function getServerSideProps(context: any) {
+
+    const course = context.query.course;
+    const option = context.query.option;
+
+    if(!course || !option) return { props: {redirect: true, clients: []}};
+
+    let courseID = 0;
+    let clientsOfCourse: {}[] = [];
+
+    // Gets the course ID, then uses it in the clients search
+    await prisma.courses.findMany({
+        where: {
+            name: course!.toString()
         }
-    }, []);
+    }).then(result => {
+        if(result.length !== 1) {
+            return { props: {redirect: true, clients: [], course: course, option: option}};
+        } else {
+            courseID = result[0].id;
+        }
+    }).then(async () => {
+        await prisma.clients.findMany({
+            where: {
+                course: courseID
+            }
+        }).then(clients => {
+            clientsOfCourse = clients;
+            return {
+                props: {
+                    clients: clientsOfCourse,
+                    option: option,
+                    course: course,
+                    error: false
+                }
+            };
+        });
+    })
+}
 
-    if(option === "signin") {
+type Props = {
+    clients: {}[],
+    option?: string,
+    course?: string
+    error?: boolean
+}
+
+export default function Course(props: Props) {
+    if(props.error) {
+        useRouter().push("/");
+    }
+
+    if(props.option === "signin") {
         return (
             <div>
                 <Logo />
                 <div className="flex justify-center items-center">
                     <div className="6/12">
-                        <Form course={course} toast={toast} />
+                        <Form course={props.course} toast={toast} />
                     </div>
                 </div>
             </div>
         );
-    } else if(option === "signout") {
+    } else if(props.option === "signout") {
         return (
             <div>
                 <Logo />
                 <div className="flex justify-center items-center h-96">
                     <div className="flex flex-col items-center justify-center 6/12">
                         <div className="mb-12">
-                            <Title title={course!.toString()} showDate={true} showBackButton={true} previousPage="/" />
+                            <Title title={props.course!.toString()} showDate={true} showBackButton={true} previousPage="/" />
                         </div>
-                        <SignOutForm course={course!.toString()} toast={toast} />
+                        <SignOutForm clients={props.clients} course={props.course!.toString()} toast={toast} />
                     </div>
                 </div>
             </div>
