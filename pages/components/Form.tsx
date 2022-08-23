@@ -3,7 +3,13 @@ import React from 'react'
 import Title from './Title'
 
 type Props = {
-    course: any
+    course: any,
+    toast: any,
+}
+
+type Response = {
+    error?: string,
+    message?: string
 }
 
 export default function Form(props: Props) {
@@ -29,6 +35,31 @@ export default function Form(props: Props) {
                     headers: {
                         'Content-Type': 'application/json'
                    }
+                }).then(async response => {
+                    if(response.status === 200) {
+                        props.toast("👍 You're Signed In", {
+                            clickClosable: true,
+                            render: (text: string) => <div className="bg-lime-500 text-2xl text-white font-bold px-10 py-2 rounded-lg">{text}</div>
+                        });
+                    } else if (response.status === 400) {
+                        const responseJSON = JSON.parse(await response.text());
+                        if(responseJSON.error === "Please enter all the fields") {
+                            props.toast("👎 Please enter all the fields", {
+                                clickClosable: true,
+                                render: (text: string) => <div className="bg-red-500 text-2xl text-white font-bold px-10 py-2 rounded-lg">{text}</div>
+                            });
+                        } else {
+                            props.toast("👎 Selected Course Doesn't Exist", {
+                                clickClosable: true,
+                                render: (text: string) => <div className="bg-red-500 text-2xl text-white font-bold px-10 py-2 rounded-lg">{text}</div>
+                            });
+                        }
+                    } else {
+                        props.toast("👎 Something Went Wrong", {
+                            clickClosable: true,
+                            render: (text: string) => <div className="bg-red-500 text-2xl text-white font-bold px-10 py-2 rounded-lg">{text}</div>
+                        });
+                    }
                 });
             }} className="bg-darkblue text-3xl w-fit p-1 px-3 font-bold text-white rounded-md">Sign In</button>
         </div>
