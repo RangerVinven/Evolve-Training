@@ -11,7 +11,7 @@ type Data = {
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
-    if(req.method !== "GET") return res.status(400).json({ error: "Only GET is allowed" })
+    if(req.method !== "GET") return res.status(405).json({ error: "Only GET is allowed" })
 
 	prisma.courses.findMany({
         orderBy: [

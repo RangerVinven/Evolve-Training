@@ -10,7 +10,7 @@ type Data = {
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 	
-    if(req.method !== "POST") return res.status(400).json({ error: "Only POST is allowed" })
+    if(req.method !== "POST") return res.status(405).json({ error: "Only POST is allowed" })
     
     const clientID = req.body.clientID;
     if(!clientID) return res.status(400).json({ error: "Missing clientID" });
