@@ -1,5 +1,4 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { readdirSync } from 'fs';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { prisma } from "../../lib/prisma";
@@ -10,9 +9,11 @@ type Data = {
 }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-	const clientID = req.body.clientID;
-
-    if(!clientID) res.status(400).json({ error: "Missing clientID" });
+	
+    if(req.method !== "POST") return res.status(400).json({ error: "Only POST is allowed" })
+    
+    const clientID = req.body.clientID;
+    if(!clientID) return res.status(400).json({ error: "Missing clientID" });
 
     prisma.clients.delete({
         where: {
@@ -26,5 +27,5 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
         return res.status(500).json({
             error: "Something went wrong"
         });
-    })
+    });
 }

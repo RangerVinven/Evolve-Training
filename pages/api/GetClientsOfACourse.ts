@@ -10,6 +10,9 @@ type Data = {
 }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+
+    if(req.method !== "GET") return res.status(400).json({ error: "Only POST is allowed" })
+
     if(!req.body.course) {
         return res.status(400).json({
             error: "Please enter all the fields"
