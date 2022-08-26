@@ -1,11 +1,15 @@
 import React from 'react'
 
-export default function Client() {
+type Props = {
+    name: string,
+    company: string,
+}
+
+export default function Client(props: Props) {
   return (
-    <div className="bg-green rounded-md flex flex-col p-2 font-bold text-white">
-        <h1>Name: John Doe</h1>
-        <h1>Company: Evolve Training</h1>
-        <h1>Course: Forklift Handling</h1>
+    <div className="bg-green rounded-md flex flex-col p-2 mr-4 mb-4 font-bold text-white">
+        <h1>Name: {props.name}</h1>
+        <h1>Company: {props.company}</h1>
     </div>
   )
 }
