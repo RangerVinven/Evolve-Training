@@ -77,7 +77,7 @@ export default function Course(props: Props) {
             <div>
                 <Logo />
                 <div className="flex justify-center items-center">
-                    <div className="6/12">
+                    <div className="w-6/12">
                         <Form course={props.course} toast={toast} />
                     </div>
                 </div>
@@ -88,7 +88,7 @@ export default function Course(props: Props) {
             <div>
                 <Logo />
                 <div className="flex justify-center items-center h-96">
-                    <div className="flex flex-col items-center justify-center 6/12">
+                    <div className="flex flex-col items-center justify-center w-6/12">
                         <div className="mb-12">
                             <Title title={props.course!.toString()} showDate={true} showBackButton={true} previousPage="/" />
                         </div>
@@ -102,12 +102,16 @@ export default function Course(props: Props) {
         return (
             <div>
                 <Logo />
-                <div className="flex justify-center items-center h-96">
-                    <div className="flex flex-col items-center justify-center 6/12">
+                <div className="flex justify-center items-center">
+                    <div className="flex flex-col items-center justify-center w-9/12">
                         <div className="mb-12">
                             <Title title={props.course!.toString()} showDate={true} showBackButton={true} previousPage="/" />
                         </div>
-                        <Client />
+                        <div className="flex flex-wrap justify-center">
+                            {
+                                props.clients.map((client: any) => <Client name={client.name} company={client.company} />)
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
