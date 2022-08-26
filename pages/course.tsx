@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 
 import toast from 'react-simple-toasts';
 
@@ -9,6 +9,7 @@ import Title from './components/Title';
 import SignOutForm from './components/SignOutForm';
 
 import { prisma } from "../lib/prisma";
+import Client from './components/Client';
 
 export async function getServerSideProps(context: any) {
 
@@ -97,5 +98,21 @@ export default function Course(props: Props) {
             </div>
         );
         
+    } else if(props.option === "registered") {
+        return (
+            <div>
+                <Logo />
+                <div className="flex justify-center items-center h-96">
+                    <div className="flex flex-col items-center justify-center 6/12">
+                        <div className="mb-12">
+                            <Title title={props.course!.toString()} showDate={true} showBackButton={true} previousPage="/" />
+                        </div>
+                        <Client />
+                    </div>
+                </div>
+            </div>
+        );
+    } else {
+        useRouter().push("/");
     }
 }
