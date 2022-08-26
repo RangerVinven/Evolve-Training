@@ -47,7 +47,16 @@ export async function getServerSideProps(context: any) {
                 }
             };
         });
-    })
+    });
+
+    return {
+        props: {
+            clients: clientsOfCourse,
+            option: option,
+            course: course,
+            error: false
+        }
+    };
 }
 
 type Props = {
