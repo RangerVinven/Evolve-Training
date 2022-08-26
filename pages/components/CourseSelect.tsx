@@ -5,6 +5,7 @@ import Course from './Course'
 import Search from './Search'
 
 import ReactLoading from 'react-loading';
+import Link from 'next/link';
 
 type Course ={
     id: number
@@ -36,7 +37,11 @@ export default function CourseSelect(props: any) {
                             <BackButton previousPage="/" isInTitle={false} />
                             <Search />
                         </div>
-                        <button className="h-10 bg-darkblue px-1 rounded-md text-white font-bold mb-2 mr-6">All Trainees</button>
+                        <Link href={{
+                            pathname: "/allTrainees"
+                        }}>
+                            <button className="h-10 bg-darkblue px-1 rounded-md text-white font-bold mb-2 mr-6">All Trainees</button>
+                        </Link>
                     </div>
                     <div className="flex flex-wrap justify-center items-center w-9/12 ">
                         {
