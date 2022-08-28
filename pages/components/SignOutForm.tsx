@@ -1,13 +1,15 @@
+import { useRouter } from 'next/router';
 import React, { useEffect } from 'react'
 import ReactLoading from 'react-loading';
 
 type Props ={
     course: string,
-	toast: any
+	toast: any,
+	clients: {}[]
 }
 
 type Clients = {
-	clients: Array<{}>,
+	clients: any,
 	setSelectedClientID: Function,
 	selectedClientID: number,
 	toast: any
@@ -15,45 +17,32 @@ type Clients = {
 
 export default function SignOutForm(props: Props) {
 
-	let [clients, setClients] = React.useState([{
-		"Clients Not Loaded": "Clients Not Loaded",
-	}]);
-
 	let [selectedClientID, setSelectedClientID] = React.useState(0);
 
-	useEffect(() => {
-		fetch("/api/GetClientsOfACourse", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify({
-				"course": props.course
-			})
-		}).then(res => res.json()).then(data => {
-			setClients(data.clients);                                        
-		});
-	}, [])
 
-	if(clients.length === 1) {
-		if(clients[0].hasOwnProperty("Clients Not Loaded")) {
-			return (
-				<div>
-                    <div className="h-450 flex justify-center items-center">
-                        <ReactLoading type="spinningBubbles" color="#1F5C78" height={100} width={100} />
-                    </div>
-                </div>
-			);
-		} else {
-			return (
-				<SelectAndSubmitComponent toast={props.toast} clients={clients} setSelectedClientID={setSelectedClientID} selectedClientID={selectedClientID}  />
-			);
-		}
-	} else {
-		return (
-			<SelectAndSubmitComponent toast={props.toast} clients={clients} setSelectedClientID={setSelectedClientID} selectedClientID={selectedClientID} />
-		);
-	}
+	// if(props.clients.length === 1) {
+	// 	if(clients[0].hasOwnProperty("Clients Not Loaded")) {
+	// 		// return (
+	// 		// 	<div>
+    //         //         <div className="h-450 flex justify-center items-center">
+    //         //             <ReactLoading type="spinningBubbles" color="#1F5C78" height={100} width={100} />
+    //         //         </div>
+    //         //     </div>
+	// 		// );
+	// 	} else {
+	// 		return (
+	// 			<SelectAndSubmitComponent toast={props.toast} clients={clients} setSelectedClientID={setSelectedClientID} selectedClientID={selectedClientID}  />
+	// 		);
+	// 	}
+	// } else {
+	// 	return (
+	// 		<SelectAndSubmitComponent toast={props.toast} clients={clients} setSelectedClientID={setSelectedClientID} selectedClientID={selectedClientID} />
+	// 	);
+	// }
+
+	return (
+		<SelectAndSubmitComponent toast={props.toast} clients={props.clients} setSelectedClientID={setSelectedClientID} selectedClientID={selectedClientID} />
+	);
 };
 
 function SelectAndSubmitComponent(props: Clients) {
@@ -64,7 +53,7 @@ function SelectAndSubmitComponent(props: Clients) {
 			}} defaultValue="Your Name" className="w-96 h-12 mb-5 bg-green pl-1 rounded-md text-white font-bold text-2xl" name="client">
 				<option disabled>Your Name</option>
 				{
-					props.clients.map((client: any) => {
+					props.clients.clients.map((client: any) => {
 						return (
 							<option key={client.id} value={client.id}>{client.name} - {client.company}</option>
 						)
