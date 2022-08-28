@@ -7,58 +7,9 @@ import Logo from './components/Logo';
 import Form from './components/Form';
 import Title from './components/Title';
 import SignOutForm from './components/SignOutForm';
-
-import { prisma } from "../lib/prisma";
 import Client from './components/Client';
 
-export async function getServerSideProps(context: any) {
-
-    const course = context.query.course;
-    const option = context.query.option;
-
-    if(!course || !option) return { props: {redirect: true, clients: []}};
-
-    let courseID = 0;
-    let clientsOfCourse: {}[] = [];
-
-    // Gets the course ID, then uses it in the clients search
-    await prisma.courses.findMany({
-        where: {
-            name: course!.toString()
-        }
-    }).then(result => {
-        if(result.length !== 1) {
-            return { props: {redirect: true, clients: [], course: course, option: option}};
-        } else {
-            courseID = result[0].id;
-        }
-    }).then(async () => {
-        await prisma.clients.findMany({
-            where: {
-                course: courseID
-            }
-        }).then(clients => {
-            clientsOfCourse = clients;
-            return {
-                props: {
-                    clients: clientsOfCourse,
-                    option: option,
-                    course: course,
-                    error: false
-                }
-            };
-        });
-    });
-
-    return {
-        props: {
-            clients: clientsOfCourse,
-            option: option,
-            course: course,
-            error: false
-        }
-    };
-}
+import ReactLoading from 'react-loading';
 
 type Props = {
     clients: {}[],
@@ -68,48 +19,86 @@ type Props = {
 }
 
 export default function Course(props: Props) {
-    if(props.error) {
-        useRouter().push("/");
-    }
+    
+    let [loading, setLoading] = React.useState(true);
+    let [clients, setClients] = React.useState<any>([]);    
 
-    if(props.option === "signin") {
+    const router = useRouter();
+    const course = router.query.course?.toString();
+    const option = router.query.option?.toString();
+
+    useEffect(() => {
+        if(!course || !option) {
+            router.push("/")
+        };
+        if(option !== "signin" && option !== "signout" && option !== "registered") router.push("/");
+
+        fetch("/api/GetClientsOfACourse", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                course: course
+            })
+        }).then(res => res.json()).then(res => {
+            setClients(res);
+            setLoading(false);            
+        }).catch(err => {
+            toast("👎 Something Went Wrong", {
+                clickClosable: true,
+                render: (text: string) => <div className="bg-red-500 text-2xl text-white font-bold px-10 py-2 rounded-lg">{text}</div>
+            });
+        });
+    }, [])
+
+    if(loading) {
+        return (
+            <div>
+                <Logo />
+                <div className="absolute left-2/4 top-2/4 transform -translate-x-1/2 -translate-y-1/2">
+                    <ReactLoading type="spinningBubbles" color="#1F5C78" height={125} width={125} />
+                </div>
+            </div>
+        );
+    } else if(option === "signin") {
         return (
             <div>
                 <Logo />
                 <div className="flex justify-center items-center">
                     <div className="w-6/12">
-                        <Form course={props.course} toast={toast} />
+                        <Form course={course} toast={toast} />
                     </div>
                 </div>
             </div>
         );
-    } else if(props.option === "signout") {
+    } else if(option === "signout") {
         return (
             <div>
                 <Logo />
                 <div className="flex justify-center items-center h-96">
                     <div className="flex flex-col items-center justify-center w-6/12">
                         <div className="mb-12">
-                            <Title title={props.course!.toString()} showDate={true} showBackButton={true} previousPage="/" />
+                            <Title title={course!.toString()} showDate={true} showBackButton={true} previousPage="/" />
                         </div>
-                        <SignOutForm clients={props.clients} course={props.course!.toString()} toast={toast} />
+                        <SignOutForm clients={clients} course={course!.toString()} toast={toast} />
                     </div>
                 </div>
             </div>
         );
         
-    } else if(props.option === "registered") {
+    } else if(option === "registered") {        
         return (
             <div>
                 <Logo />
                 <div className="flex justify-center items-center">
                     <div className="flex flex-col items-center justify-center w-9/12">
                         <div className="mb-12">
-                            <Title title={props.course!.toString()} showDate={true} showBackButton={true} previousPage="/" />
+                            <Title title={course!.toString()} showDate={true} showBackButton={true} previousPage="/" />
                         </div>
                         <div className="flex flex-wrap justify-center">
                             {
-                                props.clients.map((client: any) => <Client name={client.name} company={client.company} />)
+                                clients.clients!.map((client: any) => <Client name={client.name} company={client.company} />)
                             }
                         </div>
                     </div>
