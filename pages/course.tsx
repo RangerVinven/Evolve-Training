@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 import toast from 'react-simple-toasts';
 
@@ -87,7 +87,7 @@ export default function Course(props: Props) {
             </div>
         );
         
-    } else {        
+    } else {
         return (
             <div>
                 <Logo />
