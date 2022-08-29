@@ -34,3 +34,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Stops Pushing "Deleted" Files To Remote Repository
+/courses
+/signin
+/signout
+[course].tsx
