@@ -19,7 +19,7 @@ export default function SignOutForm(props: Props) {
 			}} defaultValue="Your Name" className="w-96 h-12 mb-5 bg-green pl-1 rounded-md text-white font-bold text-2xl" name="client">
 				<option disabled>Your Name</option>
 				{
-					props.clients.map((client: any) => {
+					props.clients.clients.map((client: any) => {
 						return (
 							<option key={client.id} value={client.id}>{client.name} - {client.company}</option>
 						)
