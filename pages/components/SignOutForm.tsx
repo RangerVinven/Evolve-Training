@@ -12,6 +12,9 @@ export default function SignOutForm(props: Props) {
 
 	let [selectedClientID, setSelectedClientID] = React.useState(0);
 
+	console.log(props.clients.clients);
+	
+
 	return (
 		<div className="flex flex-col justify-center items-center">
 			<select onChange={(event) => {
