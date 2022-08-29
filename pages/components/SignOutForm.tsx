@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import ReactLoading from 'react-loading'
 
 type Props ={
     course: string,
@@ -18,9 +19,6 @@ export default function SignOutForm(props: Props) {
 
 	let [selectedClientID, setSelectedClientID] = React.useState(0);
 
-	console.log(props.clients);
-	
-
 	return (
 		<div className="flex flex-col justify-center items-center">
 			<select onChange={(event) => {
@@ -28,11 +26,7 @@ export default function SignOutForm(props: Props) {
 			}} defaultValue="Your Name" className="w-96 h-12 mb-5 bg-green pl-1 rounded-md text-white font-bold text-2xl" name="client">
 				<option disabled>Your Name</option>
 				{
-					props.clients.clients!.map((client: any) => {
-						return (
-							<option key={client.id} value={client.id}>{client.name} - {client.company}</option>
-						)
-					})
+					props.clients === undefined ? <div className="absolute left-2/4 top-2/4 transform -translate-x-1/2 -translate-y-1/2"><ReactLoading type="spinningBubbles" color="#1F5C78" height={100} width={100} /></div> : props.clients.clients!.map((client: any) => {return (<option key={client.id} value={client.id}>{client.name} - {client.company}</option>)})
 				}
 			</select>
 			<button onClick={() => {
