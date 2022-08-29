@@ -87,9 +87,7 @@ export default function Course(props: Props) {
             </div>
         );
         
-    } else if(option === "registered") {      
-        console.log(clients.clients!.length);
-          
+    } else if(option === "registered") {        
         return (
             <div>
                 <Logo />
