@@ -5,55 +5,21 @@ import ReactLoading from 'react-loading';
 type Props ={
     course: string,
 	toast: any,
-	clients: {}[]
-}
-
-type Clients = {
-	clients: any,
-	setSelectedClientID: Function,
-	selectedClientID: number,
-	toast: any
+	clients: any
 }
 
 export default function SignOutForm(props: Props) {
 
 	let [selectedClientID, setSelectedClientID] = React.useState(0);
 
-
-	// if(props.clients.length === 1) {
-	// 	if(clients[0].hasOwnProperty("Clients Not Loaded")) {
-	// 		// return (
-	// 		// 	<div>
-    //         //         <div className="h-450 flex justify-center items-center">
-    //         //             <ReactLoading type="spinningBubbles" color="#1F5C78" height={100} width={100} />
-    //         //         </div>
-    //         //     </div>
-	// 		// );
-	// 	} else {
-	// 		return (
-	// 			<SelectAndSubmitComponent toast={props.toast} clients={clients} setSelectedClientID={setSelectedClientID} selectedClientID={selectedClientID}  />
-	// 		);
-	// 	}
-	// } else {
-	// 	return (
-	// 		<SelectAndSubmitComponent toast={props.toast} clients={clients} setSelectedClientID={setSelectedClientID} selectedClientID={selectedClientID} />
-	// 	);
-	// }
-
-	return (
-		<SelectAndSubmitComponent toast={props.toast} clients={props.clients} setSelectedClientID={setSelectedClientID} selectedClientID={selectedClientID} />
-	);
-};
-
-function SelectAndSubmitComponent(props: Clients) {
 	return (
 		<div className="flex flex-col justify-center items-center">
 			<select onChange={(event) => {
-				props.setSelectedClientID(Number(event.target.value));
+				setSelectedClientID(Number(event.target.value));
 			}} defaultValue="Your Name" className="w-96 h-12 mb-5 bg-green pl-1 rounded-md text-white font-bold text-2xl" name="client">
 				<option disabled>Your Name</option>
 				{
-					props.clients.clients.map((client: any) => {
+					props.clients.map((client: any) => {
 						return (
 							<option key={client.id} value={client.id}>{client.name} - {client.company}</option>
 						)
@@ -67,7 +33,7 @@ function SelectAndSubmitComponent(props: Clients) {
 						"Content-Type": "application/json"
 					},
 					body: JSON.stringify({
-						"clientID": props.selectedClientID,
+						"clientID": selectedClientID,
 					})
 				}).then(res => {
 					if(res.status === 200) {
@@ -89,5 +55,5 @@ function SelectAndSubmitComponent(props: Clients) {
 				});
 			}} className="bg-darkblue text-2xl w-fit p-1 px-2 mt-8 font-bold text-white rounded-md">Sign Out</button>
 		</div>
-	)
+	);
 };
