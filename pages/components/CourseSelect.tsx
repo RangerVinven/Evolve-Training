@@ -15,16 +15,18 @@ type Course ={
 export default function CourseSelect(props: any) {    
 
     let [courses, setCourses] = React.useState<Course[]>([]);
+    let [loading, setLoading] = React.useState(true);
     
     React.useEffect(() => {
         fetch("/api/GetCourses").then(res => res.json()).then(data => {
             setCourses(data.courses);
+            setLoading(false);
         });
     }, []);
     
-    if(courses.length === 0) {
+    if(loading) {
         return (
-            <div className="h-450 flex justify-center items-center">
+            <div className="absolute left-2/4 top-2/4 transform -translate-x-1/2 -translate-y-1/2">
                 <ReactLoading type="spinningBubbles" color="#1F5C78" height={100} width={100} />
             </div>
         );
