@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useRouter } from 'next/router'
+import{ useRouter } from 'next/router'
 
 import toast from 'react-simple-toasts';
 
@@ -98,7 +98,7 @@ export default function Course(props: Props) {
                         </div>
                         <div className="flex flex-wrap justify-center">
                             {   
-                                clients.clients!.length !== 0 ? clients.clients!.map((client: any) => <Client key={client.id} name={client.name} company={client.company} />) : <h1 className="text-4xl text-green font-bold absolute top-2/4 left-2/4 transform -translate-x-1/2 -translate-y-1/2">No Trainees Are Signed In For This Course</h1>
+                                clients.clients!.length !== 0 ? clients.clients!.map((client: any) => <Client key={client.name+"-"+client.company} name={client.name} company={client.company} />) : <h1 className="text-4xl text-green font-bold absolute top-2/4 left-2/4 transform -translate-x-1/2 -translate-y-1/2">No Trainees Are Signed In For This Course</h1>
                             }
                         </div>
                     </div>
