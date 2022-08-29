@@ -87,18 +87,20 @@ export default function Course(props: Props) {
             </div>
         );
         
-    } else if(option === "registered") {        
+    } else if(option === "registered") {      
+        console.log(clients.clients!.length);
+          
         return (
             <div>
                 <Logo />
                 <div className="flex justify-center items-center">
                     <div className="flex flex-col items-center justify-center w-9/12">
-                        <div className="mb-12">
+                        <div className="mb-12 mt-12">
                             <Title title={course!.toString()} showDate={true} showBackButton={true} previousPage="/" />
                         </div>
                         <div className="flex flex-wrap justify-center">
-                            {
-                                clients.clients!.map((client: any) => <Client name={client.name} company={client.company} />)
+                            {   
+                                clients.clients!.length !== 0 ? clients.clients!.map((client: any) => <Client name={client.name} company={client.company} />) : <h1 className="text-4xl text-green font-bold absolute top-2/4 left-2/4 transform -translate-x-1/2 -translate-y-1/2">No Trainees Are Signed In For This Course</h1>
                             }
                         </div>
                     </div>
