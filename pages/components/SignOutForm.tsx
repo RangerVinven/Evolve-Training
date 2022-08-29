@@ -1,18 +1,24 @@
-import { useRouter } from 'next/router';
 import React, { useEffect } from 'react'
-import ReactLoading from 'react-loading';
 
 type Props ={
     course: string,
 	toast: any,
-	clients: any
+	clients: {
+		clients: [Client]
+	}
+}
+
+type Client = {
+	id: Number,
+	name: string,
+	company: string,
 }
 
 export default function SignOutForm(props: Props) {
 
 	let [selectedClientID, setSelectedClientID] = React.useState(0);
 
-	console.log(props.clients.clients);
+	console.log(props.clients);
 	
 
 	return (
