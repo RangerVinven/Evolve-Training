@@ -87,7 +87,7 @@ export default function Course(props: Props) {
             </div>
         );
         
-    } else if(option === "registered") {        
+    } else {        
         return (
             <div>
                 <Logo />
@@ -105,7 +105,5 @@ export default function Course(props: Props) {
                 </div>
             </div>
         );
-    } else {
-        useRouter().push("/");
     }
 }
