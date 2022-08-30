@@ -21,7 +21,8 @@ type Props = {
 export default function Course(props: Props) {
     
     let [loading, setLoading] = React.useState(true);
-    let [clients, setClients] = React.useState<any>([]);    
+    let [clients, setClients] = React.useState<any>([]);
+    let [submitLoading, setSubmitLoading] = React.useState(false);  
 
     const router = useRouter();
     const course = router.query.course?.toString();
@@ -74,14 +75,17 @@ export default function Course(props: Props) {
         );
     } else if(option === "signout") {
         return (
-            <div>
+            <div className="w-screen">
                 <Logo />
-                <div className="flex justify-center items-center h-96">
-                    <div className="flex flex-col items-center justify-center w-6/12">
+                <div className="flex justify-center items-center h-96 mt-20">
+                    <div className="flex flex-col items-center justify-center w-9/12">
                         <div className="mb-12">
                             <Title title={course!.toString()} showDate={true} showBackButton={true} previousPage="/" />
                         </div>
-                        <SignOutForm clients={clients} course={course!.toString()} toast={toast} />
+                        <div className="mb-20">
+                            <SignOutForm submitLoading={false} setSubmitLoading={setSubmitLoading} clients={clients} course={course!.toString()} toast={toast} />
+                        </div>
+                        { submitLoading ? <div className="absolute top-2/3"><ReactLoading type="spinningBubbles" color="#1F5C78" height={125} width={125} /></div> : <div /> }
                     </div>
                 </div>
             </div>
