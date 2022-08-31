@@ -48,7 +48,7 @@ export default function SignOutForm(props: Props) {
 							render: (text: string) => <div className="bg-lime-500 text-2xl text-white font-bold px-10 py-2 rounded-lg">{text}</div>
 						});
 					} else if (res.status === 400) {
-						props.toast("👎 Client ID Not Found", {
+						props.toast("👎 Please Select Your Name", {
 							clickClosable: true,
 							render: (text: string) => <div className="bg-red-500 text-2xl text-white font-bold px-10 py-2 rounded-lg">{text}</div>
 						});
