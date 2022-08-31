@@ -6,11 +6,7 @@ import Title from './Title'
 type Props = {
     course: any,
     toast: any,
-}
-
-type Response = {
-    error?: string,
-    message?: string
+    onMobile: boolean
 }
 
 export default function Form(props: Props) {
@@ -24,7 +20,7 @@ export default function Form(props: Props) {
     return (
         <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-1/2">
             <div className="flex flex-col justify-between items-center mt-4 h-full">
-                <Title title={props.course} showDate={true} showBackButton={true} previousPage="/" />
+                <Title title={props.course} showDate={!props.onMobile} showBackButton={true} previousPage="/" />
                 
                 <input type="text" placeholder="Your Name" className={inputStyle} onChange={(e) => setName(e.target.value)} />
                 <input type="text" placeholder="Your Company" className={inputStyle} onChange={(e) => setCompany(e.target.value)} />
@@ -39,7 +35,7 @@ export default function Form(props: Props) {
                         }),
                         headers: {
                             'Content-Type': 'application/json'
-                    }
+                        }
                     }).then(async response => {
                         if(response.status === 200) {
                             props.toast("👍 You're Signed In", {

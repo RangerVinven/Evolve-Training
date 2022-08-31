@@ -22,6 +22,7 @@ export default function Course(props: Props) {
     
     let [loading, setLoading] = React.useState(true);
     let [clients, setClients] = React.useState<any>([]);
+    const [isMobile, setMobile] = React.useState(false);
     let [submitLoading, setSubmitLoading] = React.useState(false);  
 
     const router = useRouter();
@@ -33,6 +34,10 @@ export default function Course(props: Props) {
             router.push("/")
         };
         if(option !== "signin" && option !== "signout" && option !== "registered") router.push("/");
+
+        const userAgent = typeof window.navigator === "undefined" ? "" : navigator.userAgent;
+        const mobile = Boolean(userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i));
+        setMobile(mobile);
 
         fetch("/api/GetClientsOfACourse", {
             method: "POST",
@@ -69,7 +74,7 @@ export default function Course(props: Props) {
                 <div className="w-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                     <div className="flex justify-center items-center h-96 mt-20">
                         <div className="w-6/12">
-                            <Form course={course} toast={toast} />
+                            <Form course={course} toast={toast} onMobile={isMobile} />
                         </div>
                     </div>
                 </div>
