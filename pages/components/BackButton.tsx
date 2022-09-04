@@ -13,7 +13,7 @@ export default function BackButton(props: Props) {
             <Link href={{
                 pathname: props.previousPage,
             }}>
-                <button className="bg-darkblue text-3xl w-fit p-1 px-3 font-bold text-white rounded-md mr-2">Back</button>
+                <button className="bg-darkblue text-3xl w-fit p-1 px-3 font-bold text-white rounded-md mr-2">Home</button>
             </Link>
         )
     } else {
@@ -21,7 +21,7 @@ export default function BackButton(props: Props) {
             <Link href={{
                 pathname: props.previousPage,
             }}>
-                <button className="bg-darkblue text-xl mb-1 w-fit p-1 px-3 font-bold text-white rounded-md mr-2">Back</button>
+                <button className="bg-darkblue text-xl mb-1 w-fit p-1 px-3 font-bold text-white rounded-md mr-2">Home</button>
             </Link>
         )
     }
