@@ -5,24 +5,69 @@ import Title from './components/Title'
 
 import { prisma } from "../lib/prisma";
 
+function getTraineesFromCourses(courses: any[], clients: any[]) {
+    let clientsOfCourse = [];
+    let newCoursesAndClients = [];
+
+    // Loops through the courses
+    for(let i = 0; i < courses.length; i++) {
+        let courseID = courses[i].id;
+
+        // Adds the clients for the current course
+        for (let x = 0; x < clients.length; x++) {
+            if(clients[x].course === courseID) {
+                clientsOfCourse.push(clients[x]);
+            } else if (clients[x].course === courseID) {
+                break;
+            }
+        }     
+        
+        if(clientsOfCourse.length !== 0) newCoursesAndClients.push({
+            course: courses[i].name,
+            clients: clientsOfCourse
+        });
+
+        clientsOfCourse = [];
+    }  
+    
+    return newCoursesAndClients;    
+}
+
 export async function getServerSideProps(context: any) {
     let courses: Array<{}> = []
     let clients: Array<{}> = []
 
     await prisma.courses.findMany().then(res => courses = res);
-    await prisma.clients.findMany().then(res => clients = res);    
+    await prisma.clients.findMany({
+        orderBy: [
+            {
+                course: "asc",
+            },
+            {
+                name: "asc"
+            }
+        ]
+    }).then(res => clients = res);    
+
+    const coursesAndClients = getTraineesFromCourses(courses, clients);
 
     return {
         props: {
-            courses: courses,
-            clients: clients
+            coursesAndClients: coursesAndClients
         }
     };
 }
 
 type Props = {
-    courses: Array<{}>
-    clients: Array<{}>
+    coursesAndClients: {
+        courses: Array<{}>
+        clients: Array<{}>
+    }
+}
+
+type Course = {
+    id: number,
+    name: string
 }
 
 export default function allTrainees(props: Props) {
@@ -35,7 +80,6 @@ export default function allTrainees(props: Props) {
                     <div className="mb-12">
                         <Title title="All Trainees" showDate={true} showBackButton={true} previousPage="/" />
                     </div>
-                    
                 </div>
             </div>
         </div>
