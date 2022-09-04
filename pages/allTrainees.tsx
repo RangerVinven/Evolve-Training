@@ -9,15 +9,15 @@ export async function getServerSideProps(context: any) {
     let courses: Array<{}> = []
     let clients: Array<{}> = []
 
-    prisma.courses.findMany().then(res => courses = res);
-    prisma.clients.findMany().then(res => clients = res);
+    await prisma.courses.findMany().then(res => courses = res);
+    await prisma.clients.findMany().then(res => clients = res);    
 
     return {
         props: {
             courses: courses,
             clients: clients
         }
-    }
+    };
 }
 
 type Props = {
@@ -26,6 +26,7 @@ type Props = {
 }
 
 export default function allTrainees(props: Props) {
+
     return (
         <div>
             <Logo />
@@ -39,4 +40,4 @@ export default function allTrainees(props: Props) {
             </div>
         </div>
     )
-}
+};
