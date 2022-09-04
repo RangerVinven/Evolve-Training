@@ -2,6 +2,7 @@ import React from 'react'
 import Logo from './components/Logo'
 
 import Title from './components/Title'
+import Client from './components/Client';
 
 import { prisma } from "../lib/prisma";
 
@@ -59,10 +60,10 @@ export async function getServerSideProps(context: any) {
 }
 
 type Props = {
-    coursesAndClients: {
-        courses: Array<{}>
-        clients: Array<{}>
-    }
+    coursesAndClients: Array<{
+        course: string,
+        client: {}[]
+    }>
 }
 
 type Course = {
@@ -80,8 +81,24 @@ export default function allTrainees(props: Props) {
                     <div className="mb-12">
                         <Title title="All Trainees" showDate={true} showBackButton={true} previousPage="/" />
                     </div>
+                    <Course coursesAndClients={props.coursesAndClients} />
                 </div>
             </div>
         </div>
     )
+};
+
+function Course(props: Props) {
+    return props.coursesAndClients.map((course: any) => {        
+        return <div className="flex flex-col justify-center items-center">
+            <h3 key={course.name} className="text-darkblue text-3xl font-semibold mb-1">{course.course}</h3>
+            <div className="flex flex-wrap justify-center mb-5">
+                {
+                    course.clients.map((client: any)=> {
+                        return <Client key={client.name+"-"+client.company} name={client.name} company={client.company} />
+                    })
+                }
+            </div>
+        </div>
+    })
 };
