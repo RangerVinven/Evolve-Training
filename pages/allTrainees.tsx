@@ -76,7 +76,7 @@ export default function allTrainees(props: Props) {
     return (
         <div>
             <Logo />
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center mt-10">
                 <div className="flex flex-col items-center justify-center w-9/12">
                     <div className="mb-12">
                         <Title title="All Trainees" showDate={true} showBackButton={true} previousPage="/" />
@@ -91,7 +91,7 @@ export default function allTrainees(props: Props) {
 function Course(props: Props) {
     return props.coursesAndClients.map((course: any) => {        
         return <div className="flex flex-col justify-center items-center">
-            <h3 key={course.name} className="text-darkblue text-3xl font-semibold mb-1">{course.course}</h3>
+            <h3 key={course.name} className="text-darkblue text-center text-3xl font-semibold mb-1">{course.course}</h3>
             <div className="flex flex-wrap justify-center mb-5">
                 {
                     course.clients.map((client: any)=> {
