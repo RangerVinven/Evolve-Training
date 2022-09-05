@@ -18,7 +18,8 @@ function HomeIcon() {
 
 export default function BackButton(props: Props) {
 
-    if(props.showBackButton) {
+    // Doesn't show the back button
+    if(!props.showBackButton) {
         return(<div></div>)
     }
 
