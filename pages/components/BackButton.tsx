@@ -1,11 +1,19 @@
 import React from 'react'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
+
+import { Icon } from 'react-icons-kit'
+import { home } from 'react-icons-kit/icomoon/home'
 
 type Props = {
     previousPage: string,
     isInTitle: boolean
 }
+
+function HomeIcon() {
+    return (
+        <Icon size={30} icon={home} />
+    )
+};
 
 export default function BackButton(props: Props) {
     if(props.isInTitle) {
@@ -13,7 +21,7 @@ export default function BackButton(props: Props) {
             <Link href={{
                 pathname: props.previousPage,
             }}>
-                <button className="bg-darkblue text-3xl w-fit p-1 px-3 font-bold text-white rounded-md mr-2">Home</button>
+                <button className="bg-darkblue text-3xl w-fit p-1 px-3 font-bold text-white rounded-md mr-2"><HomeIcon /></button>
             </Link>
         )
     } else {
@@ -21,8 +29,10 @@ export default function BackButton(props: Props) {
             <Link href={{
                 pathname: props.previousPage,
             }}>
-                <button className="bg-darkblue text-xl mb-1 w-fit p-1 px-3 font-bold text-white rounded-md mr-2">Home</button>
+                <button className="bg-darkblue text-xl mb-1 w-fit p-1 px-3 font-bold text-white rounded-md mr-2"><HomeIcon /></button>
             </Link>
         )
     }
 }
+
+
