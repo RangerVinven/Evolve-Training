@@ -26,7 +26,7 @@ export default function Course(props: Props) {
     let [submitLoading, setSubmitLoading] = React.useState(false);  
 
     const router = useRouter();
-    const course = router.query.course?.toString();
+    const course = router.query.course?.toString() + ""; // + "" to work with signin title
     const option = router.query.option?.toString();
 
     useEffect(() => {
@@ -71,6 +71,7 @@ export default function Course(props: Props) {
         return (
             <div>
                 <Logo />
+                <Title title={course} showDate={!isMobile} showBackButton={true} previousPage="/" />
                 <div className="w-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                     <div className="flex justify-center items-center h-96 mt-20">
                         <div className="w-6/12">
