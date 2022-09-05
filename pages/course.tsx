@@ -87,7 +87,7 @@ export default function Course(props: Props) {
                 <div className="flex justify-center items-center h-96 mt-20">
                     <div className="flex flex-col items-center justify-center w-9/12">
                         <div className="mb-12">
-                            <Title title={course!.toString()} showDate={true} showBackButton={true} previousPage="/" />
+                            <Title title={course!.toString()} showDate={!isMobile} showBackButton={true} previousPage="/" />
                         </div>
                         <div className="mb-20">
                             <SignOutForm submitLoading={false} setSubmitLoading={setSubmitLoading} clients={clients} course={course!.toString()} toast={toast} />
@@ -105,7 +105,7 @@ export default function Course(props: Props) {
                 <div className="flex justify-center items-center">
                     <div className="flex flex-col items-center justify-center w-9/12">
                         <div className="mb-12 mt-12">
-                            <Title title={course!.toString()} showDate={true} showBackButton={true} previousPage="/" />
+                            <Title title={course!.toString()} showDate={!isMobile} showBackButton={true} previousPage="/" />
                         </div>
                         <div className="flex flex-wrap justify-center">
                             {   
