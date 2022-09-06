@@ -99,8 +99,8 @@ export default function AllTrainees(props: Props) {
 
 function Course(props: Props) {
     return props.coursesAndClients.map((course: any) => {        
-        return <div className="flex flex-col justify-center items-center">
-            <h3 key={course.name} className="text-darkblue text-center text-3xl font-semibold mb-1">{course.course}</h3>
+        return <div key={course.name} className="flex flex-col justify-center items-center">
+            <h3 className="text-darkblue text-center text-3xl font-semibold mb-1">{course.course}</h3>
             <div className="flex flex-wrap justify-center mb-5">
                 {
                     course.clients.map((client: any)=> {
