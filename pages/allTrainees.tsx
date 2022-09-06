@@ -71,7 +71,7 @@ type Course = {
     name: string
 }
 
-export default function allTrainees(props: Props) {
+export default function AllTrainees(props: Props) {
 
     let [isMobile, setIsMobile] = React.useState(false);
 
