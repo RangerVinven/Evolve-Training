@@ -28,7 +28,7 @@ export default function BackButton(props: Props) {
             <Link href={{
                 pathname: props.previousPage,
             }}>
-                <button className="flex justify-center items-center bg-darkblue text-3xl w-fit p-1 px-3 font-bold text-white rounded-md mr-2"><HomeIcon /></button>
+                <button className="flex justify-center items-center bg-darkblue text-3xl w-fit md:p-1 md:px-3 px-1 pb-1 font-bold text-white rounded-md mr-2"><HomeIcon /></button>
             </Link>
         )
     } else {
@@ -36,7 +36,7 @@ export default function BackButton(props: Props) {
             <Link href={{
                 pathname: props.previousPage,
             }}>
-                <button className="bg-darkblue text-xl mb-1 w-fit p-1 px-3 font-bold text-white rounded-md mr-2"><HomeIcon /></button>
+                <button className="bg-darkblue text-xl mb-1 w-fit md:p-1 md:px-3 px-1 font-bold text-white rounded-md mr-2"><HomeIcon /></button>
             </Link>
         )
     }

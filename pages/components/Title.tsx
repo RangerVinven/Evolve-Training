@@ -24,10 +24,10 @@ export default function Title(props: Props) {
     }
 
     return (
-        <div className="absolute left-1/2 top-11 -translate-x-1/2">
+        <div className="w-full absolute left-1/2 top-28 lg:top-11 -translate-x-1/2">
             <div className="flex justify-center items-center">
                 <BackButton showBackButton={props.showBackButton} isInTitle={true} previousPage={props.previousPage === undefined ? "/" : props.previousPage} />
-                <h1 className="text-4xl text-darkblue font-bold">{props.title + (props.showDate ? " - " + date.getDate() + "/" + (getMonth(date.getMonth() + 1)) + "/" + date.getFullYear() : "")}</h1>
+                <h1 className="text-2xl md:text-4xl text-darkblue font-bold">{props.title + (props.showDate ? " - " + date.getDate() + "/" + (getMonth(date.getMonth() + 1)) + "/" + date.getFullYear() : "")}</h1>
             </div>
         </div>
     )
