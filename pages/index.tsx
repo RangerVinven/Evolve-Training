@@ -1,13 +1,11 @@
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import { NextRouter, useRouter } from 'next/router'
+import { NextRouter } from 'next/router'
 
 import Logo from './components/Logo'
-import Title from './components/Title'
 
 const Home: NextPage = () => {	
 
-	const router = useRouter();
 	const buttonStyling = "bg-green text-white font-bold text-4xl px-7 py-3 mr-7 mb-7 rounded-md";
 
 	const redirectUser = (router: NextRouter, option: string) => {
@@ -17,6 +15,7 @@ const Home: NextPage = () => {
 	return (
 		<div>
 			<Logo />
+			<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
 			<div className="flex flex-col items-center justify-center h-450">
 				<div className="flex flex-wrap md:flex-none lg:flex-none items-center justify-center">
 					<Link href={{
@@ -45,6 +44,7 @@ const Home: NextPage = () => {
 					}}>
 						<button className={buttonStyling}>Registered</button>
 					</Link>
+				</div>
 			</div>
 		</div>
 	)
