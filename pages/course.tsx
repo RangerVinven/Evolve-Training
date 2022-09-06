@@ -22,7 +22,7 @@ export default function Course(props: Props) {
     
     let [loading, setLoading] = React.useState(true);
     let [clients, setClients] = React.useState<any>([]);
-    const [isMobile, setMobile] = React.useState(false);
+    const [isMobile, setIsMobile] = React.useState(false);
     let [submitLoading, setSubmitLoading] = React.useState(false);  
 
     const router = useRouter();
@@ -37,7 +37,7 @@ export default function Course(props: Props) {
 
         const userAgent = typeof window.navigator === "undefined" ? "" : navigator.userAgent;
         const mobile = Boolean(userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i));
-        setMobile(mobile);
+        setIsMobile(mobile);
 
         fetch("/api/GetClientsOfACourse", {
             method: "POST",
