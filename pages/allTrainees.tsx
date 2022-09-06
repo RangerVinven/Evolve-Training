@@ -90,24 +90,23 @@ export default function AllTrainees(props: Props) {
                     <div className="mb-12">
                         <Title title="All Trainees" showDate={!isMobile} showBackButton={true} previousPage="/" />
                     </div>
-                    <Course coursesAndClients={props.coursesAndClients} />
+
+                    {
+                        props.coursesAndClients.map((course: any) => {        
+                            return <div key={course.name} className="flex flex-col justify-center items-center">
+                                <h3 className="text-darkblue text-center text-3xl font-semibold mb-1">{course.course}</h3>
+                                <div className="flex flex-wrap justify-center mb-5">
+                                    {
+                                        course.clients.map((client: any)=> {
+                                            return <Client key={client.name+"-"+client.company} name={client.name} company={client.company} />
+                                        })
+                                    }
+                                </div>
+                            </div>
+                        })
+                    }
                 </div>
             </div>
         </div>
     )
-};
-
-function Course(props: Props) {
-    return props.coursesAndClients.map((course: any) => {        
-        return <div key={course.name} className="flex flex-col justify-center items-center">
-            <h3 className="text-darkblue text-center text-3xl font-semibold mb-1">{course.course}</h3>
-            <div className="flex flex-wrap justify-center mb-5">
-                {
-                    course.clients.map((client: any)=> {
-                        return <Client key={client.name+"-"+client.company} name={client.name} company={client.company} />
-                    })
-                }
-            </div>
-        </div>
-    })
 };
