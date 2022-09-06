@@ -73,13 +73,22 @@ type Course = {
 
 export default function allTrainees(props: Props) {
 
+    let [isMobile, setIsMobile] = React.useState(false);
+
+    React.useEffect(() => {
+        const userAgent = typeof window.navigator === "undefined" ? "" : navigator.userAgent;
+        const mobile = Boolean(userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i));
+        setIsMobile(mobile);
+    }, [])
+    
+
     return (
         <div>
             <Logo />
             <div className="flex justify-center items-center mt-10">
                 <div className="flex flex-col items-center justify-center w-9/12">
                     <div className="mb-12">
-                        <Title title="All Trainees" showDate={true} showBackButton={true} previousPage="/" />
+                        <Title title="All Trainees" showDate={!isMobile} showBackButton={true} previousPage="/" />
                     </div>
                     <Course coursesAndClients={props.coursesAndClients} />
                 </div>
