@@ -85,7 +85,7 @@ export default function Course(props: Props) {
         return (
             <div className="w-screen">
                 <Logo />
-                <div className="flex justify-center items-center h-96 mt-20">
+                <div className="flex justify-center items-center h-96 mt-48">
                     <div className="flex flex-col items-center justify-center w-9/12">
                         <div className="mb-12">
                             <Title title={course!.toString()} showDate={!isMobile} showBackButton={true} previousPage="/" />
