@@ -32,21 +32,15 @@ export default function AllTrainees(props: Props) {
         const mobile = Boolean(userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i));
         setIsMobile(mobile);
 
-        fetch("/api/AllTrainees").then((res: any) => {
-            setCoursesAndClients(res.body.coursesAndClients);
-            setLoading(false);
-        });
-
-
-        fetch("/api/GetClientsOfACourse").then(res => res.json()).then(res => {
-            setCoursesAndClients(res);
+        fetch("/api/AllTrainees").then(res => res.json()).then(res => {
+            setCoursesAndClients(res.coursesAndClients);
             setLoading(false);
         }).catch(err => {
             toast("👎 Something Went Wrong", {
                 clickClosable: true,
                 render: (text: string) => <div className="bg-red-500 text-2xl text-white font-bold px-10 py-2 rounded-lg">{text}</div>
             });
-        });
+        });      
 
     }, [])
     
