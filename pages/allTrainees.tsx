@@ -58,7 +58,7 @@ export default function AllTrainees(props: Props) {
         return (
             <div>
                 <Logo />
-                <div className="flex justify-center items-center mt-10">
+                <div className="flex justify-center items-center">
                     <div className="flex flex-col items-center justify-center w-9/12">
                         <div className="mb-12">
                             <Title title="All Trainees" showDate={!isMobile} showBackButton={true} previousPage="/" />
