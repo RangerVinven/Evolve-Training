@@ -4,8 +4,6 @@ import Logo from './components/Logo'
 import Title from './components/Title'
 import Client from './components/Client';
 
-import { prisma } from "../lib/prisma";
-
 import ReactLoading from 'react-loading';
 import toast from 'react-simple-toasts';
 
@@ -58,7 +56,7 @@ export default function AllTrainees(props: Props) {
         return (
             <div>
                 <Logo />
-                <div className="flex justify-center items-center">
+                <div className="flex justify-center items-center mt-10 md:mt-0">
                     <div className="flex flex-col items-center justify-center w-9/12">
                         <div className="mb-12">
                             <Title title="All Trainees" showDate={!isMobile} showBackButton={true} previousPage="/" />
