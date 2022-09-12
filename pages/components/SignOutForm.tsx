@@ -53,7 +53,7 @@ export default function SignOutForm(props: Props) {
 							render: (text: string) => <div className="bg-red-500 text-2xl text-white font-bold px-10 py-2 rounded-lg">{text}</div>
 						});
 					} else {
-						props.toast("👎 Something Went Wrong", {
+						props.toast("👎 Something Went Wrong, Have You Already Signed Out?", {
 							clickClosable: true,
 							render: (text: string) => <div className="bg-red-500 text-2xl text-white font-bold px-10 py-2 rounded-lg">{text}</div>
 						});
