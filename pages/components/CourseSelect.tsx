@@ -34,15 +34,15 @@ export default function CourseSelect(props: any) {
         return (
             <div className="flex justify-center items-center mt-10">    
                 <div className="flex flex-col items-center">
-                    <div className="lg:flex md:flex justify-between items-end w-6.9/10">
-                        <div className="flex flex-col items-start">
+                    <div className="md:flex justify-between items-end min-w-6.9/10 w-6.9/10">
+                        <div className="flex flex-col items-start mr-10">
                             <BackButton showBackButton={true} previousPage="/" isInTitle={false} />
                             <Search setCourses={setCourses} />
                         </div>
                         <Link href={{
                             pathname: "/allTrainees"
                         }}>
-                            <button className="h-10 bg-darkblue px-1 rounded-md text-white font-bold mb-2 mr-6">All Trainees</button>
+                            <button className="h-10 bg-darkblue px-2 rounded-md whitespace-nowrap text-white font-bold mb-2 mr-6">All Trainees</button>
                         </Link>
                     </div>
                     <div className="flex flex-wrap justify-center items-center w-9/12 ">
