@@ -11,51 +11,53 @@ type Data = {
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
-    if(req.method !== "POST") return res.status(405).json({ error: "Only POST is allowed" })
+    return new Promise((resolve: any, reject: any) => {
+        if(req.method !== "POST") return res.status(405).json({ error: "Only POST is allowed" })
 
-    if(!req.body.course) {
-        return res.status(400).json({
-            error: "Please enter all the fields"
-        });
-    }
-
-    let courseID = 0;
-
-    // Gets the ID of the course
-    prisma.courses.findMany({
-        where: {
-            name: req.body.course
-        }
-    }).then((courses: any) => {
-        if(courses.length !== 1) {
+        if(!req.body.course) {
             return res.status(400).json({
-                error: "Course not found"
+                error: "Please enter all the fields"
             });
-        } else {
-            courseID = courses[0].id;
         }
-    }).then(() => {
-        prisma.clients.findMany({
+
+        let courseID = 0;
+
+        // Gets the ID of the course
+        prisma.courses.findMany({
             where: {
-                course: courseID
-            },
-            orderBy: [
-                {
-                    name: "asc"
-                }
-            ]
-        }).then((clients: any) => {
-            return res.status(200).json({
-                clients: clients
-            });
-        }).catch((error: any) => {            
+                name: req.body.course
+            }
+        }).then((courses: any) => {
+            if(courses.length !== 1) {
+                return res.status(400).json({
+                    error: "Course not found"
+                });
+            } else {
+                courseID = courses[0].id;
+            }
+        }).then(() => {
+            prisma.clients.findMany({
+                where: {
+                    course: courseID
+                },
+                orderBy: [
+                    {
+                        name: "asc"
+                    }
+                ]
+            }).then((clients: any) => {
+                return res.status(200).json({
+                    clients: clients
+                });
+            }).catch((error: any) => {            
+                return res.status(500).json({
+                    error: "Something went wrong"
+                });
+            })
+        }).catch((error: any) => {
             return res.status(500).json({
                 error: "Something went wrong"
             });
-        })
-    }).catch((error: any) => {
-        return res.status(500).json({
-            error: "Something went wrong"
         });
     });
 };

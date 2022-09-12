@@ -41,38 +41,40 @@ export default function handler(
     res: NextApiResponse<Data>
 ) {
 
-    if(req.method !== "GET") return res.status(405).json({ error: "Only GET is allowed" });
+    return new Promise((resolve: any, reject: any) => {
+        if(req.method !== "GET") return res.status(405).json({ error: "Only GET is allowed" });
 
-    let courses: Array<{}> = []
-    let clients: Array<{}> = []
+        let courses: Array<{}> = []
+        let clients: Array<{}> = []
 
-    prisma.courses.findMany().then((result: any) => {
-        courses = result;
+        prisma.courses.findMany().then((result: any) => {
+            courses = result;
 
-        prisma.clients.findMany({
-            orderBy: [
-                {
-                    course: "asc",
-                },
-                {
-                    name: "asc"
-                }
-            ]
-        }).then(result => {
-            clients = result
-            const coursesAndClients = getTraineesFromCourses(courses, clients);
+            prisma.clients.findMany({
+                orderBy: [
+                    {
+                        course: "asc",
+                    },
+                    {
+                        name: "asc"
+                    }
+                ]
+            }).then((result: any) => {
+                clients = result
+                const coursesAndClients = getTraineesFromCourses(courses, clients);
 
-            return res.status(200).json({
-                coursesAndClients: coursesAndClients,
+                return res.status(200).json({
+                    coursesAndClients: coursesAndClients,
+                });
+            }).catch((err: any) => {
+                return res.status(500).json({
+                    error: "Something Went Wrong"
+                });
             });
-        }).catch(err => {
+        }).catch((err: any) => {
             return res.status(500).json({
                 error: "Something Went Wrong"
             });
         });
-    }).catch(err => {
-        return res.status(500).json({
-            error: "Something Went Wrong"
-        });
-    });    
+    });
 }

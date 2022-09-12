@@ -12,23 +12,27 @@ export default function handler(
     req: NextApiRequest,
     res: NextApiResponse<Data>
 ) {
-    const course = req.body.course;
-    
-    if(req.method !== "POST") return res.status(405).json({ error: "Only POST is allowed" });
+    // Finds and returns the courses beginning with whatever the user entered
+    return new Promise((resolve: any, reject: any) => {
 
-    prisma.courses.findMany({
-        where: {
-            name: {
-                startsWith: course
+        const course = req.body.course;
+    
+        if(req.method !== "POST") return res.status(405).json({ error: "Only POST is allowed" });
+
+        prisma.courses.findMany({
+            where: {
+                name: {
+                    startsWith: course
+                }
             }
-        }
-    }).then((courses: any) => {
-        return res.status(200).json({
-            courses: courses
+        }).then((courses: any) => {
+            return res.status(200).json({
+                courses: courses
+            });
+        }).catch((err: any) => {
+            return res.status(500).json({
+                error: "Something Went Wrong"
+            });
         });
-    }).catch((err: any) => {
-        return res.status(500).json({
-            error: "Something Went Wrong"
-        })
     });
 }
