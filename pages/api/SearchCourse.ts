@@ -19,6 +19,7 @@ export default function handler(
     
         if(req.method !== "POST") return res.status(405).json({ error: "Only POST is allowed" });
 
+        // Returns the course from the user's search
         prisma.courses.findMany({
             where: {
                 name: {

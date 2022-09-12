@@ -14,6 +14,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
     if(req.method !== "GET") return res.status(405).json({ error: "Only GET is allowed" })
 
     return new Promise((resolve: any, reject: any) => {
+        // Gets all the courses
         prisma.courses.findMany({
             orderBy: [
                 {

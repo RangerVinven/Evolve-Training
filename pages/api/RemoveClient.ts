@@ -17,6 +17,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
         const clientID = req.body.clientID;
         if(!clientID) return res.status(400).json({ error: "Missing clientID" });
 
+        // Deletes the client
         prisma.clients.delete({
             where: {
                 id: clientID

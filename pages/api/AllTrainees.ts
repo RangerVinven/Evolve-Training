@@ -8,6 +8,7 @@ type Data = {
     error?: String
 }
 
+// Formats the courses and clients for the component
 function getTraineesFromCourses(courses: any[], clients: any[]) {
     let clientsOfCourse = [];
     let newCoursesAndClients = [];
@@ -47,6 +48,7 @@ export default function handler(
         let courses: Array<{}> = []
         let clients: Array<{}> = []
 
+        // Gets all the trainees
         prisma.courses.findMany().then((result: any) => {
             courses = result;
 
@@ -60,6 +62,7 @@ export default function handler(
                     }
                 ]
             }).then((result: any) => {
+                // Formats the trainees into 1 array of objects, then returns it 
                 clients = result
                 const coursesAndClients = getTraineesFromCourses(courses, clients);
 

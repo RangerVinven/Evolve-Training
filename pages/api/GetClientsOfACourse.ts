@@ -36,6 +36,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
                 courseID = courses[0].id;
             }
         }).then(() => {
+            // Gets the clients of a specific course
             prisma.clients.findMany({
                 where: {
                     course: courseID
