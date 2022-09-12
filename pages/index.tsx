@@ -15,33 +15,33 @@ const Home: NextPage = () => {
 	return (
 		<div>
 			<Logo />
-			<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-			<div className="flex flex-col items-center justify-center h-450">
-				<div className="flex flex-wrap md:flex-none lg:flex-none items-center justify-center">
+			<div className="m-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+				<div className="flex flex-col items-center justify-center h-450">
+					<div className="flex flex-wrap flex-none lg:flex-none items-center justify-center">
+						<Link href={{
+							pathname: '/courses',
+							query: {
+								option: 'signin'
+							}
+						}}>
+							<button className={buttonStyling}>Sign In</button>
+						</Link>
+						
+						<Link href={{
+							pathname: '/courses',
+							query: {
+								option: 'signout'
+							}
+						}}>
+							<button className={buttonStyling}>Sign Out</button>
+						</Link>
+					</div>
 					<Link href={{
-						pathname: '/courses',
-						query: {
-							option: 'signin'
-						}
-					}}>
-						<button className={buttonStyling}>Sign In</button>
-					</Link>
-					
-					<Link href={{
-						pathname: '/courses',
-						query: {
-							option: 'signout'
-						}
-					}}>
-						<button className={buttonStyling}>Sign Out</button>
-					</Link>
-				</div>
-				<Link href={{
-						pathname: '/courses',
-						query: {
-							option: 'registered'
-						}
-					}}>
+							pathname: '/courses',
+							query: {
+								option: 'registered'
+							}
+						}}>
 						<button className={buttonStyling}>Registered</button>
 					</Link>
 				</div>
