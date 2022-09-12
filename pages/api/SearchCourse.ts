@@ -14,7 +14,7 @@ export default function handler(
 ) {
     const course = req.body.course;
     
-    if(req.method !== "POST") return res.status(405).json({ error: "Only GET is allowed" });
+    if(req.method !== "POST") return res.status(405).json({ error: "Only POST is allowed" });
 
     prisma.courses.findMany({
         where: {
@@ -26,7 +26,7 @@ export default function handler(
         return res.status(200).json({
             courses: courses
         });
-    }).catch(err => {
+    }).catch((err: any) => {
         return res.status(500).json({
             error: "Something Went Wrong"
         })
