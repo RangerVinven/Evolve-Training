@@ -26,3 +26,11 @@ model Courses {
   id   Int    @id @default(autoincrement()) @db.UnsignedInt
   name String @default("") @db.VarChar(100)
 }
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model Staff {
+  Name     String  @db.VarChar(100)
+  SignedIn Boolean
+
+  @@ignore
+}
