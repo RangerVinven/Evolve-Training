@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react'
 import Logo from '../components/Logo'
 
@@ -11,11 +12,15 @@ export default function index() {
 				<Logo />
 			</div>
 
-			<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  flex flex-col">
+			<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col">
 				<div className="flex">
-					<button className={buttonStyling}>
-						Sign In
-					</button>
+					<Link href={{
+						pathname: "/staff/signin"
+					}}>
+						<button className={buttonStyling}>
+							Sign In
+						</button>
+					</Link>
 
 					<button className={buttonStyling}>
 						Sign Out
