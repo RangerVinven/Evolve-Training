@@ -1,10 +1,9 @@
 import Link from 'next/link';
 import React from 'react'
 import Logo from '../components/Logo'
+import Title from '../components/Title';
 
 export default function index() {
-
-	const buttonStyling = "bg-green text-white font-bold text-4xl px-7 py-3 mr-7 mb-7 rounded-md";
 
 	return (
 		<div>
@@ -12,22 +11,20 @@ export default function index() {
 				<Logo />
 			</div>
 
-			<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col">
-				<div className="flex">
-					<Link href={{
-						pathname: "/staff/signin"
-					}}>
-						<button className={buttonStyling}>
-							Sign In
-						</button>
-					</Link>
+			<Title title="Staff" showBackButton={true} showDate={false} />
 
-					<button className={buttonStyling}>
-						Sign Out
-					</button>
+			<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col">
+				<div className="mb-10">
+					<Link href={{
+							pathname: "/staff/signinorout"
+						}}>
+							<button className="bg-green text-white font-bold text-4xl px-14 py-6 mr-7 mb-7 rounded-md">
+								Sign In/Out
+							</button>
+					</Link>
 				</div>
 
-				<button className={buttonStyling}>
+				<button className="bg-green text-white font-bold text-2xl px-2 py-2 mr-7 mb-7 rounded-md">
 					Signed In
 				</button>
 			</div>
