@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-simple-toasts';
 
 import Logo from '../components/Logo'
+import Title from '../components/Title';
 
 export default function signInAndOut() {
 
@@ -75,8 +76,10 @@ export default function signInAndOut() {
 				<Logo />
 			</div>
 
+			<Title title="Sign In/Out" showBackButton={true} showDate={true} previousPage="/staff" />
+
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                <select onChange={(event) => {     
+                <select onChange={(event) => {
                     setChosenStaff(event.target.value);               
                 }} defaultValue="Your Name" className="w-96 h-12 mb-5 bg-green pl-1 rounded-md text-white font-bold text-2xl" name="client">
                     <option disabled>Your Name</option>
