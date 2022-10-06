@@ -24,9 +24,14 @@ export default function index() {
 					</Link>
 				</div>
 
-				<button className="bg-green text-white font-bold text-2xl px-2 py-2 mr-7 mb-7 rounded-md">
-					Signed In
-				</button>
+				<Link href={{
+							pathname: "/staff/signedin"
+						}}>
+							<button className="bg-green text-white font-bold text-2xl px-2 py-2 mr-7 mb-7 rounded-md">
+								Signed In
+							</button>
+					</Link>
+				
 			</div>
 		</div>
 	)
