@@ -5,7 +5,7 @@ import toast from 'react-simple-toasts';
 import Logo from '../components/Logo'
 import Title from '../components/Title';
 
-export default function signInAndOut() {
+export default function SignInAndOut() {
 
     let [staff, setStaff] = useState([]);
     let [chosenStaff, setChosenStaff] = useState("");

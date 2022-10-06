@@ -10,7 +10,7 @@ interface Staff {
     SignedIn: Boolean
 }
 
-export default function signedIn() {
+export default function SignedIn() {
 
     let [signedInStaffState, setSignedInStaffState] = useState<Array<{}>>([]);
     let [loading, setLoading] = useState(true);
