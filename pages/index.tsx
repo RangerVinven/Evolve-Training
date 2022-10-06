@@ -17,13 +17,13 @@ const Home: NextPage = () => {
 		<div>
 			<Logo />
 
-			<div className="absolute top-3/4">
+			{/* <div className="absolute top-3/4">
 				<Link href={{
 					pathname: "/staff"
 				}}>
 					<button className="flex justify-center items-center bg-darkblue text-2xl w-fit md:p-1 md:px-3 px-1 pb-1 font-bold text-white rounded-md mr-2">Staff</button>
 				</Link>
-			</div>
+			</div> */}
 
 			<div className="m-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
 				<div className="flex flex-col">
