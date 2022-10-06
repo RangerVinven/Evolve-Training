@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import ReactLoading from 'react-loading';
 import toast from 'react-simple-toasts';
 
 import Logo from '../components/Logo'
@@ -8,6 +9,7 @@ export default function signInAndOut() {
 
     let [staff, setStaff] = useState([]);
     let [chosenStaff, setChosenStaff] = useState("");
+    let [loading, setLoading] = useState(true);
 
     enum Options {
         SignIn = "SignIn",
@@ -18,6 +20,7 @@ export default function signInAndOut() {
         // Gets the staff from the SeeStaff endpoint
         fetch("/api/staff/SeeStaff").then(res => res.json()).then(res => {
             setStaff(res.staff);
+            setLoading(false);
         }).catch(err => {
             toast("👎 Something Went Wrong", {
                 clickClosable: true,
@@ -25,6 +28,31 @@ export default function signInAndOut() {
             });     
         });  
     }, []);
+
+    const isLoading = () => {
+        if(loading) {
+            return <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"><ReactLoading type="spinningBubbles" color="#1F5C78" height={150} width={150} /></div>
+        } else {
+            return (
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <select onChange={(event) => {
+                        setChosenStaff(event.target.value);         
+                    }} defaultValue="Your Name" className="w-96 h-12 mb-5 bg-green pl-1 rounded-md text-white font-bold text-2xl" name="client">
+                        <option disabled>Your Name</option>
+                        {
+                            staff.map((staff: any) => {
+                                return <option key={staff.Name} value={staff.Name}>{staff.Name}</option>
+                            })
+                        }
+                    </select>
+                    <div className="flex justify-between w-96">
+                        <button className="bg-darkblue text-3xl w-fit p-1 px-3 font-bold text-white rounded-md" onClick={() => signStaffInOrOut(chosenStaff, Options.SignIn)}>Sign In</button>
+                        <button className="bg-darkblue text-3xl w-fit p-1 px-3 font-bold text-white rounded-md" onClick={() => signStaffInOrOut(chosenStaff, Options.SignOut)}>Sign Out</button>
+                    </div>
+                </div>
+            )
+        }
+    }
     
     // Shows the success/failure alert
     const alertUser = (isSuccess: boolean, option: Options) => {
@@ -78,22 +106,9 @@ export default function signInAndOut() {
 
 			<Title title="Sign In/Out" showBackButton={true} showDate={true} previousPage="/staff" />
 
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                <select onChange={(event) => {
-                    setChosenStaff(event.target.value);               
-                }} defaultValue="Your Name" className="w-96 h-12 mb-5 bg-green pl-1 rounded-md text-white font-bold text-2xl" name="client">
-                    <option disabled>Your Name</option>
-                    {
-                        staff.map((staff: any) => {
-                            return <option key={staff.Name} value={staff.Name}>{staff.Name}</option>
-                        })
-                    }
-                </select>
-                <div className="flex justify-between w-96">
-                    <button className="bg-darkblue text-3xl w-fit p-1 px-3 font-bold text-white rounded-md" onClick={() => signStaffInOrOut(chosenStaff, Options.SignIn)}>Sign In</button>
-                    <button className="bg-darkblue text-3xl w-fit p-1 px-3 font-bold text-white rounded-md" onClick={() => signStaffInOrOut(chosenStaff, Options.SignOut)}>Sign Out</button>
-                </div>
-            </div>
+            {
+                isLoading()
+            }
         </div>
     )
 }

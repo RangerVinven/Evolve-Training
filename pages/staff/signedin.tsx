@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import ReactLoading from 'react-loading'
 
 import Logo from '../components/Logo'
 import Title from '../components/Title'
@@ -12,6 +13,7 @@ interface Staff {
 export default function signedin() {
 
     let [signedInStaffState, setSignedInStaffState] = useState<Array<{}>>([]);
+    let [loading, setLoading] = useState(true);
 
     useEffect(() => {
         // Gets all the staff
@@ -23,8 +25,26 @@ export default function signedin() {
             }
 
             setSignedInStaffState(signedInStaff);
+            setLoading(false);
         });
     }, []);
+
+    const isLoading = () => {
+        if(loading) {
+            return <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"><ReactLoading type="spinningBubbles" color="#1F5C78" height={150} width={150} /></div>
+        } else {
+            return (
+                <div className="absolute left-1/2 -translate-x-1/2 mt-32">
+                    {
+                        signedInStaffState.map((staff: any) => <p className="bg-green text-center rounded-md flex flex-col p-2 mr-4 mb-4 font-bold text-white" 
+                        key={staff.Name}>
+                            {staff.Name}
+                        </p>)
+                    }
+                </div>
+            )
+        }
+    }
 
     return (
         <div>
@@ -33,14 +53,9 @@ export default function signedin() {
             </div>
             <Title title="Signed In Staff" showDate={true} showBackButton={true} previousPage="/staff" />
 
-            <div className="absolute left-1/2 -translate-x-1/2 mt-32">
-                {
-                    signedInStaffState.map((staff: any) => <p className="bg-green text-center rounded-md flex flex-col p-2 mr-4 mb-4 font-bold text-white" 
-                    key={staff.Name}>
-                        {staff.Name}
-                    </p>)
-                }
-            </div>
+            {
+                isLoading()
+            }
         </div>
     )
 }
