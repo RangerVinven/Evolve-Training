@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ReactLoading from 'react-loading';
+
 import toast from 'react-simple-toasts';
 
 import Logo from '../components/Logo'
@@ -9,7 +10,10 @@ export default function SignInAndOut() {
 
     let [staff, setStaff] = useState([]);
     let [chosenStaff, setChosenStaff] = useState("");
-    let [loading, setLoading] = useState(true);
+    
+    let [loadingStaff, setLoadingStaff] = useState(true); // For getting a list of staff from the API
+    let [processingRequest, setProcessingRequest] = useState(false); // For the loading animation when making the /api/staff/SignInOrOut request
+
 
     enum Options {
         SignIn = "SignIn",
@@ -20,7 +24,7 @@ export default function SignInAndOut() {
         // Gets the staff from the SeeStaff endpoint
         fetch("/api/staff/SeeStaff").then(res => res.json()).then(res => {
             setStaff(res.staff);
-            setLoading(false);
+            setLoadingStaff(false);
         }).catch(err => {
             toast("👎 Something Went Wrong", {
                 clickClosable: true,
@@ -30,25 +34,30 @@ export default function SignInAndOut() {
     }, []);
 
     const isLoading = () => {
-        if(loading) {
+        if(loadingStaff) {
             return <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"><ReactLoading type="spinningBubbles" color="#1F5C78" height={150} width={150} /></div>
         } else {
             return (
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <select onChange={(event) => {
-                        setChosenStaff(event.target.value);         
-                    }} defaultValue="Your Name" className="w-96 h-12 mb-5 bg-green pl-1 rounded-md text-white font-bold text-2xl" name="client">
-                        <option disabled>Your Name</option>
-                        {
-                            staff.map((staff: any) => {
-                                return <option key={staff.Name} value={staff.Name}>{staff.Name}</option>
-                            })
-                        }
-                    </select>
-                    <div className="flex justify-between w-96">
-                        <button className="bg-darkblue text-3xl w-fit p-1 px-3 font-bold text-white rounded-md" onClick={() => signStaffInOrOut(chosenStaff, Options.SignIn)}>Sign In</button>
-                        <button className="bg-darkblue text-3xl w-fit p-1 px-3 font-bold text-white rounded-md" onClick={() => signStaffInOrOut(chosenStaff, Options.SignOut)}>Sign Out</button>
+                <div>
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <select onChange={(event) => {
+                            setChosenStaff(event.target.value);         
+                        }} defaultValue="Your Name" className="w-96 h-12 mb-5 bg-green pl-1 rounded-md text-white font-bold text-2xl" name="client">
+                            <option disabled>Your Name</option>
+                            {
+                                staff.map((staff: any) => {
+                                    return <option key={staff.Name} value={staff.Name}>{staff.Name}</option>
+                                })
+                            }
+                        </select>
+                        <div className="flex justify-between w-96">
+                            <button className="bg-darkblue text-3xl w-fit p-1 px-3 font-bold text-white rounded-md" onClick={() => signStaffInOrOut(chosenStaff, Options.SignIn)}>Sign In</button>
+                            <button className="bg-darkblue text-3xl w-fit p-1 px-3 font-bold text-white rounded-md" onClick={() => signStaffInOrOut(chosenStaff, Options.SignOut)}>Sign Out</button>
+                        </div>
                     </div>
+                    {
+                        processingRequest && <div className="absolute top-2/3 left-1/2 -translate-x-1/2 -translate-y-2/2"><ReactLoading type="spinningBubbles" color="#1F5C78" height={150} width={150} /></div>
+                    }
                 </div>
             )
         }
@@ -72,6 +81,10 @@ export default function SignInAndOut() {
 
     // Signs the staff in/out
     const signStaffInOrOut = (name: string, option: Options) => {
+
+        // Starts the loading animation
+        setProcessingRequest(true);
+
         // Tells the user to please select their name
         if(name === "") {
             toast("⚠ Please Select Your Name", {
@@ -91,9 +104,10 @@ export default function SignInAndOut() {
                 option: option === Options.SignIn ? true : false
             })
         }).then((res) => {
+            setProcessingRequest(false);
             if(res.status === 200) alertUser(true, option);
         }).catch((err) => {
-            console.log(err);
+            setProcessingRequest(false);
             alertUser(false, option);
         });
     }
@@ -104,7 +118,7 @@ export default function SignInAndOut() {
 				<Logo />
 			</div>
 
-			<Title title="Sign In/Out" showBackButton={true} showDate={true} previousPage="/staff" />
+			<Title title="Sign In/Out" showBackButton={true} showDate={false} previousPage="/staff" />
 
             {
                 isLoading()
