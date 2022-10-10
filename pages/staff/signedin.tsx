@@ -34,7 +34,7 @@ export default function SignedIn() {
             return <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"><ReactLoading type="spinningBubbles" color="#1F5C78" height={150} width={150} /></div>
         } else {
             return (
-                <div className="absolute left-1/2 -translate-x-1/2 mt-32">
+                <div className="absolute left-1/2 -translate-x-1/2 mt-48">
                     {
                         signedInStaffState.map((staff: any) => <p className="bg-green text-center rounded-md flex flex-col p-2 mr-4 mb-4 font-bold text-white" 
                         key={staff.Name}>
@@ -51,7 +51,7 @@ export default function SignedIn() {
             <div className="absolute">
                 <Logo />
             </div>
-            <Title title="Signed In Staff" showDate={true} showBackButton={true} previousPage="/staff" />
+            <Title title="Signed In Staff" showDate={false} showBackButton={true} previousPage="/staff" />
 
             {
                 isLoading()
