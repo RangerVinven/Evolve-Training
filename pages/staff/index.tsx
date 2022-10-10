@@ -16,7 +16,7 @@ export default function index() {
 			<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col">
 				<div className="mb-10">
 					<Link href={{
-							pathname: "/staff/signinorout"
+							pathname: "/staff/signInOrOut"
 						}}>
 							<button className="bg-green text-white font-bold text-4xl px-14 py-6 mr-7 mb-7 rounded-md">
 								Sign In/Out
@@ -25,7 +25,7 @@ export default function index() {
 				</div>
 
 				<Link href={{
-							pathname: "/staff/signedin"
+							pathname: "/staff/signedIn"
 						}}>
 							<button className="bg-green text-white font-bold text-2xl px-2 py-2 mr-7 mb-7 rounded-md">
 								Signed In
